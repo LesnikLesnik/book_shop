@@ -18,8 +18,8 @@ public class BookServiceImpl implements BookService {
 
     //TODO: расставить аннотации Transactional etc...
 
-    private BookMapper bookMapper;
-    private BookRepository bookRepository;
+    private final BookMapper bookMapper;
+    private final BookRepository bookRepository;
 
     //TODO: добавить логгирование для методов
     @Override
@@ -111,7 +111,7 @@ public class BookServiceImpl implements BookService {
 //    }
 
     @Override
-    public void deleteBookById(Long id, BookDTO bookDTO) {
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
 }
