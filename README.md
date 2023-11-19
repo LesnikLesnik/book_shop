@@ -4,12 +4,12 @@
 - [ ] Базовый CRUD каркас
   - [ ] сервис
   - [ ] контроллер
-  - [ ] репозиторий
+  - [x] репозиторий
   - [ ] сущности
-  - [ ] enum
-- [ ] Подключение БД PostrgesSQL
-- [ ] LiquiBase
-- [ ] changelog для book
+  - [x] enum
+- [x] Подключение БД PostrgesSQL
+- [x] LiquiBase
+- [x] changelog для book
 - [ ] использование DTO/mapstruct
   - [x] book
   - [ ] author

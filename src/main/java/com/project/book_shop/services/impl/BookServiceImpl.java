@@ -1,8 +1,7 @@
-package com.project.spring_v2.services.impl;
+package com.project.book_shop.services.impl;
 
-import com.project.spring_v2.dto.BookDTO;
-import com.project.spring_v2.entity.Book;
-import com.project.spring_v2.services.BookService;
+import com.project.book_shop.dto.BookDTO;
+import com.project.book_shop.services.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.project.spring_v2.services;
+package com.project.book_shop.services;
 
-import com.project.spring_v2.dto.BookDTO;
+import com.project.book_shop.dto.BookDTO;
 
 
 import java.util.List;

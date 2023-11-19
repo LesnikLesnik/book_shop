@@ -1,6 +1,6 @@
-package com.project.spring_v2.entity;
+package com.project.book_shop.entity;
 
-import com.project.spring_v2.entity.enums.Cover;
+import com.project.book_shop.entity.enums.Cover;
 import jakarta.persistence.*;
 import lombok.*;
 

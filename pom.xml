@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.project</groupId>
-    <artifactId>spring_V2</artifactId>
+    <artifactId>book_shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring_V2</name>
+    <name>book_shop</name>
     <description>spring_V2</description>
     <properties>
         <java.version>17</java.version>
@@ -45,6 +45,10 @@
         <dependency>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
-package com.project.spring_v2.dto;
+package com.project.book_shop.dto;
 
-import com.project.spring_v2.entity.enums.Cover;
+import com.project.book_shop.entity.enums.Cover;
 import lombok.Data;
 
 @Data

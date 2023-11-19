@@ -1,4 +1,4 @@
-package com.project.spring_v2;
+package com.project.book_shop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.project.spring_v2.entity.enums;
+package com.project.book_shop.entity.enums;
 
 public enum Cover {
     softCover,

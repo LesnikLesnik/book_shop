@@ -1,7 +1,7 @@
-package com.project.spring_v2.mapper;
+package com.project.book_shop.mapper;
 
-import com.project.spring_v2.dto.BookDTO;
-import com.project.spring_v2.entity.Book;
+import com.project.book_shop.dto.BookDTO;
+import com.project.book_shop.entity.Book;
 import org.mapstruct.Mapper;
 
 @Mapper

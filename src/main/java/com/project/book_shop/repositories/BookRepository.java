@@ -1,6 +1,6 @@
-package com.project.spring_v2.repositories;
+package com.project.book_shop.repositories;
 
-import com.project.spring_v2.entity.Book;
+import com.project.book_shop.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
