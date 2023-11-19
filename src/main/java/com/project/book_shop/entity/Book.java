@@ -13,15 +13,21 @@ import lombok.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "brand")
     private String brand;
 
+    @Column(name = "cover")
     private Cover cover;
 
+    @Column(name = "author")
     private String author;
 
+    @Column(name = "count")
     private Integer count;
 }
