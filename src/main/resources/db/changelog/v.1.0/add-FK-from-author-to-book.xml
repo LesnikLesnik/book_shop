@@ -5,11 +5,17 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <!-- Add foreign key from books to authors -->
-    <changeSet id="add_foreign_key_from_book_to_author" author="lesnik">
-        <addForeignKeyConstraint baseColumnNames="author" baseTableName="books"
-                                 constraintName="fk_book_author_id"
-                                 referencedColumnNames="author_id" referencedTableName="authors"/>
+    <!-- Add a new column 'author_id' to the 'books' table -->
+    <changeSet id="add_column_author_id_to_books" author="lesnik">
+        <addColumn tableName="books">
+            <column name="author_id" type="bigint"/>
+        </addColumn>
     </changeSet>
 
+    <!-- Add a foreign key constraint from 'books' table to 'authors' table -->
+    <changeSet id="add_foreign_key_from_book_to_author" author="lesnik">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="books"
+                                 constraintName="fk_book_author_id" referencedColumnNames="author_id"
+                                 referencedTableName="authors"/>
+    </changeSet>
 </databaseChangeLog>
