@@ -6,4 +6,6 @@
 
     <include file="create-book-table.xml" relativeToChangelogFile="true"/>
 
+    <include file="create-author-table.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>
