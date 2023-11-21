@@ -1,6 +1,7 @@
 package com.project.book_shop.services.impl;
 
 import com.project.book_shop.dto.BookDTO;
+import com.project.book_shop.entity.Author;
 import com.project.book_shop.entity.Book;
 import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.BookRepository;
@@ -64,6 +65,8 @@ public class BookServiceImpl implements BookService {
         // Если книга найдена, возвращаем её в виде DTO, иначе возвращаем null
         return optionalBook.map(bookMapper::toBookDTO).orElse(null);
     }
+
+
 
 //    @Override
 //    public BookDTO update(Long id, BookDTO bookDTO) {
