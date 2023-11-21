@@ -14,7 +14,7 @@ public class BookDTO {
 
     private Cover cover;
 
-    private String author;
+    private Long authorId;
 
     private Integer count;
 }

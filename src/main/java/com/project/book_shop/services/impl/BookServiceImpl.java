@@ -75,7 +75,7 @@ public class BookServiceImpl implements BookService {
 //                    existingBook.setName(bookDTO.getName());
 //                    existingBook.setBrand(bookDTO.getBrand());
 //                    existingBook.setCover(bookDTO.getCover());
-//                    existingBook.setAuthor(bookDTO.getAuthor());
+//                    existingBook.setAuthor(bookDTO.getAuthorId());
 //                    existingBook.setCount(bookDTO.getCount());
 //
 //                    // Сохраняем обновленную книгу в репозиторий
