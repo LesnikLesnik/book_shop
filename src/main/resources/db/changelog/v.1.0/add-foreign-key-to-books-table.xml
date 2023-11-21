@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Change type of author column in books table -->
+    <changeSet id="change_author_column_type" author="lesnik">
+        <modifyDataType
+                tableName="books"
+                columnName="author"
+                newDataType="bigint"/>
+    </changeSet>
+
+    <!-- Add foreign key to books table -->
+    <changeSet id="add_foreign_key_to_books" author="lesnik">
+        <addForeignKeyConstraint
+                baseTableName="books"
+                baseColumnNames="author"
+                constraintName="fk_books_authors"
+                referencedTableName="authors"
+                referencedColumnNames="author_id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+
+</databaseChangeLog>

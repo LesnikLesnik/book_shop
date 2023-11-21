@@ -25,8 +25,9 @@ public class Book {
     @Column(name = "cover")
     private Cover cover;
 
-    @Column(name = "author")
-    private String author;
+    @JoinColumn(name = "author")
+    @ManyToOne
+    private Author author;
 
     @Column(name = "count")
     private Integer count;

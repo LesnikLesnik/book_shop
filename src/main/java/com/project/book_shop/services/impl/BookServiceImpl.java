@@ -65,27 +65,27 @@ public class BookServiceImpl implements BookService {
         return optionalBook.map(bookMapper::toBookDTO).orElse(null);
     }
 
-    @Override
-    public BookDTO update(Long id, BookDTO bookDTO) {
-        // Проверяем, существует ли книга с заданным идентификатором
-        return Optional.ofNullable(bookRepository.findById(id))
-                .map(optionalBook -> {
-                    // Если книга существует, обновляем её данные
-                    Book existingBook = optionalBook.get();
-                    existingBook.setName(bookDTO.getName());
-                    existingBook.setBrand(bookDTO.getBrand());
-                    existingBook.setCover(bookDTO.getCover());
-                    existingBook.setAuthor(bookDTO.getAuthor());
-                    existingBook.setCount(bookDTO.getCount());
-
-                    // Сохраняем обновленную книгу в репозиторий
-                    existingBook = bookRepository.save(existingBook);
-
-                    // Возвращаем обновленную книгу в виде DTO
-                    return bookMapper.toBookDTO(existingBook);
-                })
-                .orElse(null);
-    }
+//    @Override
+//    public BookDTO update(Long id, BookDTO bookDTO) {
+//        // Проверяем, существует ли книга с заданным идентификатором
+//        return Optional.ofNullable(bookRepository.findById(id))
+//                .map(optionalBook -> {
+//                    // Если книга существует, обновляем её данные
+//                    Book existingBook = optionalBook.get();
+//                    existingBook.setName(bookDTO.getName());
+//                    existingBook.setBrand(bookDTO.getBrand());
+//                    existingBook.setCover(bookDTO.getCover());
+//                    existingBook.setAuthor(bookDTO.getAuthorId());
+//                    existingBook.setCount(bookDTO.getCount());
+//
+//                    // Сохраняем обновленную книгу в репозиторий
+//                    existingBook = bookRepository.save(existingBook);
+//
+//                    // Возвращаем обновленную книгу в виде DTO
+//                    return bookMapper.toBookDTO(existingBook);
+//                })
+//                .orElse(null);
+//    }
 //    @Override
 //    public BookDTO update(Long id, BookDTO bookDTO) {
 //        // Проверяем, существует ли книга с заданным идентификатором

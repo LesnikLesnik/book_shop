@@ -8,6 +8,6 @@
 
     <include file="create-author-table.xml" relativeToChangelogFile="true"/>
 
-    <include file="add-FK-from-author-to-book.xml" relativeToChangelogFile="true"/>
+    <include file="add-foreign-key-to-books-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
