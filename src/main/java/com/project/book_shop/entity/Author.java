@@ -29,7 +29,7 @@ public class Author {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     private List<Book> books = new ArrayList<>();
 
 }
