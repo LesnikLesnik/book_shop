@@ -10,7 +10,7 @@
 - [x] Подключение БД PostrgesSQL
 - [x] LiquiBase
 - [x] changelog для book
-- [ ] использование DTO/mapstruct
+- [x] использование DTO/mapstruct
   - [x] book
   - [x] author
 - [x] добавление сущности Author
