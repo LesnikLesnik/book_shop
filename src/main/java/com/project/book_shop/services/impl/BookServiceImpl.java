@@ -1,8 +1,10 @@
 package com.project.book_shop.services.impl;
 
+import com.project.book_shop.dto.AuthorDTO;
 import com.project.book_shop.dto.BookDTO;
 import com.project.book_shop.entity.Author;
 import com.project.book_shop.entity.Book;
+import com.project.book_shop.mapper.AuthorMapper;
 import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.BookRepository;
 import com.project.book_shop.services.AuthorService;
@@ -22,8 +24,9 @@ public class BookServiceImpl implements BookService {
 
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
-
     private final AuthorService authorService;
+
+    private final AuthorMapper authorMapper;
 
     //TODO: добавить логгирование для методов
     @Override
@@ -83,7 +86,10 @@ public class BookServiceImpl implements BookService {
             Book existingBook = optionalBook.get();
 
             // Проверяем, существует ли автор с заданным идентификатором
-            Author author = authorService.getAuthorById(bookDTO.getAuthorId());
+            Long authorId = bookDTO.getAuthorId();
+            AuthorDTO authorDTO = authorService.getAuthorById(authorId);
+            Author author = authorMapper.toAuthor(authorDTO);
+
 
             if (author != null) {
                 // Обновляем только те поля, которые необходимо изменить
@@ -101,6 +107,7 @@ public class BookServiceImpl implements BookService {
 
         // Если книга не найдена или автор не найден, возвращаем null
         return null;
+    }
 
     @Override
     public void deleteBookById(Long id) {
