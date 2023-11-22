@@ -23,4 +23,40 @@
         </insert>
     </changeSet>
 
+    <!-- ChangeSet to insert Book: Идиот -->
+    <changeSet id="insert_book_idiot" author="lesnik">
+        <insert tableName="books">
+            <column name="book_id" value="1"/>
+            <column name="name" value="Идиот"/>
+            <column name="brand" value="романРоманович"/>
+            <column name="cover" value="hard"/>
+            <column name="author" value="1"/> <!-- author_id for Достоевский -->
+            <column name="count" value="1500"/>
+        </insert>
+    </changeSet>
+
+    <!-- ChangeSet to insert Book: Преступление и наказание -->
+    <changeSet id="insert_book_crime_and_punishment" author="lesnik">
+        <insert tableName="books">
+            <column name="book_id" value="2"/>
+            <column name="name" value="Преступление и наказание"/>
+            <column name="brand" value="романРоманович"/>
+            <column name="cover" value="hard"/>
+            <column name="author" value="1"/> <!-- author_id for Достоевский -->
+            <column name="count" value="282"/>
+        </insert>
+    </changeSet>
+
+    <!-- ChangeSet to insert Book: Государь -->
+    <changeSet id="insert_book_the_prince" author="lesnik">
+        <insert tableName="books">
+            <column name="book_id" value="3"/>
+            <column name="name" value="Государь"/>
+            <column name="brand" value="политэкс"/>
+            <column name="cover" value="soft"/>
+            <column name="author" value="2"/> <!-- author_id for Макиавелли -->
+            <column name="count" value="228"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
