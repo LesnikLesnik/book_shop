@@ -23,6 +23,7 @@ public class Book {
     private String brand;
 
     @Column(name = "cover")
+    @Enumerated(EnumType.STRING)
     private Cover cover;
 
     @JoinColumn(name = "author")
