@@ -5,6 +5,7 @@ import com.project.book_shop.entity.Author;
 import com.project.book_shop.entity.Book;
 import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.BookRepository;
+import com.project.book_shop.services.AuthorService;
 import com.project.book_shop.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class BookServiceImpl implements BookService {
 
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
+
+    private final AuthorService authorService;
 
     //TODO: добавить логгирование для методов
     @Override
@@ -47,6 +50,12 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<BookDTO> getAllBooksByAuthor(Long authorId) {
+        List<Book> books = bookRepository.findByAuthorId(authorId);
+        return books.stream().map(bookMapper::toBookDTO).collect(Collectors.toList());
+    }
+
     //TODO: создать исключение в случае ненахода книги
     @Override
     public BookDTO getBookByName(String name) {
@@ -66,52 +75,32 @@ public class BookServiceImpl implements BookService {
         return optionalBook.map(bookMapper::toBookDTO).orElse(null);
     }
 
+    @Override
+    public BookDTO update(Long id, BookDTO bookDTO) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
 
+        if (optionalBook.isPresent()) {
+            Book existingBook = optionalBook.get();
 
-//    @Override
-//    public BookDTO update(Long id, BookDTO bookDTO) {
-//        // Проверяем, существует ли книга с заданным идентификатором
-//        return Optional.ofNullable(bookRepository.findById(id))
-//                .map(optionalBook -> {
-//                    // Если книга существует, обновляем её данные
-//                    Book existingBook = optionalBook.get();
-//                    existingBook.setName(bookDTO.getName());
-//                    existingBook.setBrand(bookDTO.getBrand());
-//                    existingBook.setCover(bookDTO.getCover());
-//                    existingBook.setAuthor(bookDTO.getAuthorId());
-//                    existingBook.setCount(bookDTO.getCount());
-//
-//                    // Сохраняем обновленную книгу в репозиторий
-//                    existingBook = bookRepository.save(existingBook);
-//
-//                    // Возвращаем обновленную книгу в виде DTO
-//                    return bookMapper.toBookDTO(existingBook);
-//                })
-//                .orElse(null);
-//    }
-//    @Override
-//    public BookDTO update(Long id, BookDTO bookDTO) {
-//        // Проверяем, существует ли книга с заданным идентификатором
-//        Optional<Book> optionalBook = bookRepository.findById(id);
-//
-//        if (optionalBook.isPresent()) {
-//            // Если книга существует, обновляем её данные
-//            Book existingBook = optionalBook.get();
-//            existingBook.setName(bookDTO.getName());
-//            existingBook.setBrand(bookDTO.getBrand());
-//            existingBook.setCover(bookDTO.getCover());
-//            existingBook.setAuthor(bookDTO.getAuthor());
-//            existingBook.setCount(bookDTO.getCount());
-//
-//            // Сохраняем обновленную книгу в репозиторий
-//            existingBook = bookRepository.save(existingBook);
-//
-//            // Возвращаем обновленную книгу в виде DTO
-//            return bookMapper.toBookDTO(existingBook);
-//        } else {
-//            return null;
-//        }
-//    }
+            // Проверяем, существует ли автор с заданным идентификатором
+            Author author = authorService.getAuthorById(bookDTO.getAuthorId());
+
+            if (author != null) {
+                // Обновляем только те поля, которые необходимо изменить
+                existingBook.setName(bookDTO.getName());
+                existingBook.setBrand(bookDTO.getBrand());
+                existingBook.setCover(bookDTO.getCover());
+                existingBook.setAuthor(author);
+                existingBook.setCount(bookDTO.getCount());
+
+                existingBook = bookRepository.save(existingBook);
+
+                return bookMapper.toBookDTO(existingBook);
+            }
+        }
+
+        // Если книга не найдена или автор не найден, возвращаем null
+        return null;
 
     @Override
     public void deleteBookById(Long id) {
