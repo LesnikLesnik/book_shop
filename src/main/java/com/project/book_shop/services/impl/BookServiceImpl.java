@@ -11,6 +11,7 @@ import com.project.book_shop.services.AuthorService;
 import com.project.book_shop.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-    //TODO: расставить аннотации Transactional etc...
+    //TODO: удалить лишние методы
 
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
@@ -30,6 +31,7 @@ public class BookServiceImpl implements BookService {
 
     //TODO: добавить логгирование для методов
     @Override
+    @Transactional
     public BookDTO saveBook(BookDTO bookDTO) {
         // Используем маппер для преобразования BookDTO в Book
         Book book = bookMapper.toBook(bookDTO);
@@ -43,6 +45,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<BookDTO> getAllBooks() {
         // Получаем список всех книг из репозитория
         List<Book> books = bookRepository.findAll();
@@ -54,6 +57,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BookDTO> getAllBooksByAuthor(Long authorId) {
         List<Book> books = bookRepository.findByAuthorId(authorId);
         return books.stream().map(bookMapper::toBookDTO).collect(Collectors.toList());
@@ -61,6 +65,7 @@ public class BookServiceImpl implements BookService {
 
     //TODO: создать исключение в случае ненахода книги
     @Override
+    @Transactional(readOnly = true)
     public BookDTO getBookByName(String name) {
         // Используем репозиторий для поиска книги по названию
         Optional<Book> optionalBook = bookRepository.findByName(name);
@@ -70,6 +75,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BookDTO getBookById(Long id) {
         // Используем репозиторий для поиска книги по идентификатору
         Optional<Book> optionalBook = bookRepository.findById(id);
@@ -79,6 +85,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public BookDTO update(Long id, BookDTO bookDTO) {
         Optional<Book> optionalBook = bookRepository.findById(id);
 
@@ -110,6 +117,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
