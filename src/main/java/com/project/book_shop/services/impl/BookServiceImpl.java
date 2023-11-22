@@ -9,6 +9,7 @@ import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.BookRepository;
 import com.project.book_shop.services.AuthorService;
 import com.project.book_shop.services.BookService;
+import com.project.book_shop.services.exception.BookNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +34,8 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public BookDTO saveBook(BookDTO bookDTO) {
-        // Используем маппер для преобразования BookDTO в Book
         Book book = bookMapper.toBook(bookDTO);
-
-        // Сохраняем книгу в репозиторий
         book = bookRepository.save(book);
-
-        // Возвращаем сохраненную книгу, преобразованную обратно в BookDTO
         return bookMapper.toBookDTO(book);
     }
 
@@ -47,43 +43,39 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional(readOnly = true)
     public List<BookDTO> getAllBooks() {
-        // Получаем список всех книг из репозитория
         List<Book> books = bookRepository.findAll();
-
         // Преобразуем список книг в список DTO с использованием маппера
         return books.stream()
                 .map(bookMapper::toBookDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<BookDTO> getAllBooksByAuthor(Long authorId) {
         List<Book> books = bookRepository.findByAuthorId(authorId);
-        return books.stream().map(bookMapper::toBookDTO).collect(Collectors.toList());
+        return books.stream().map(bookMapper::toBookDTO).toList();
     }
 
-    //TODO: создать исключение в случае ненахода книги
+
     @Override
     @Transactional(readOnly = true)
     public BookDTO getBookByName(String name) {
-        // Используем репозиторий для поиска книги по названию
         Optional<Book> optionalBook = bookRepository.findByName(name);
-
-        // Если книга найдена, возвращаем её в виде DTO, иначе возвращаем null
-        return optionalBook.map(bookMapper::toBookDTO).orElse(null);
+        return optionalBook.map(bookMapper::toBookDTO)
+                .orElseThrow(()-> new BookNotFoundException("Книга " + name + " не найдена!"));
     }
 
     @Override
     @Transactional(readOnly = true)
     public BookDTO getBookById(Long id) {
-        // Используем репозиторий для поиска книги по идентификатору
         Optional<Book> optionalBook = bookRepository.findById(id);
 
-        // Если книга найдена, возвращаем её в виде DTO, иначе возвращаем null
-        return optionalBook.map(bookMapper::toBookDTO).orElse(null);
+        return optionalBook.map(bookMapper::toBookDTO)
+                .orElseThrow(()-> new BookNotFoundException("Книга с " + id + " не найдена!"));
     }
 
+    //TODO: сделать рефактор метода
     @Override
     @Transactional
     public BookDTO update(Long id, BookDTO bookDTO) {
