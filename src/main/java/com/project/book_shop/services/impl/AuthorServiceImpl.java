@@ -5,6 +5,7 @@ import com.project.book_shop.entity.Author;
 import com.project.book_shop.mapper.AuthorMapper;
 import com.project.book_shop.repositories.AuthorRepository;
 import com.project.book_shop.services.AuthorService;
+import com.project.book_shop.services.exception.AuthorNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,13 +32,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     public AuthorDTO getAuthorById(Long id) {
         Optional<Author> optionalAuthor = authorRepository.findById(id);
-        return optionalAuthor.map(authorMapper::toDto).orElse(null);
+        return optionalAuthor.map(authorMapper::toDto).orElseThrow(()-> new AuthorNotFoundException("Такой автора не найден"));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<AuthorDTO> getAllAuthors() {
         List<Author> authors = authorRepository.findAll();
-        return authors.stream().map(authorMapper::toDto).collect(Collectors.toList());
+        return authors.stream().map(authorMapper::toDto).toList();
     }
 }
