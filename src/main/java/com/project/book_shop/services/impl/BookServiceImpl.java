@@ -4,9 +4,11 @@ import com.project.book_shop.dto.AuthorDTO;
 import com.project.book_shop.dto.BookDTO;
 import com.project.book_shop.entity.Author;
 import com.project.book_shop.entity.Book;
+import com.project.book_shop.entity.models.BookFilter;
 import com.project.book_shop.mapper.AuthorMapper;
 import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.BookRepository;
+import com.project.book_shop.repositories.custom.CustomBookRepository;
 import com.project.book_shop.services.AuthorService;
 import com.project.book_shop.services.BookService;
 import com.project.book_shop.services.exception.BookNotFoundException;
@@ -29,6 +31,7 @@ public class BookServiceImpl implements BookService {
     private final AuthorService authorService;
 
     private final AuthorMapper authorMapper;
+    private final CustomBookRepository customBookRepository;
 
     //TODO: добавить логгирование для методов
     @Override
@@ -39,7 +42,12 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toBookDTO(book);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public List<BookDTO> getBooksByFilter(BookFilter filter) {
+        List<Book> filteredBooks = customBookRepository.findByFilter(filter);
+        return filteredBooks.stream().map(bookMapper::toBookDTO).toList();
+    }
     @Override
     @Transactional(readOnly = true)
     public List<BookDTO> getAllBooks() {

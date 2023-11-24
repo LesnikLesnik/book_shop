@@ -1,6 +1,7 @@
 package com.project.book_shop.controllers;
 
 import com.project.book_shop.dto.BookDTO;
+import com.project.book_shop.entity.models.BookFilter;
 import com.project.book_shop.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -57,5 +58,11 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBookById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<BookDTO>> getBooksByFilter(@RequestBody BookFilter filter) {
+        List<BookDTO> filteredBooks = bookService.getBooksByFilter(filter);
+        return new ResponseEntity<>(filteredBooks, HttpStatus.OK);
     }
 }
