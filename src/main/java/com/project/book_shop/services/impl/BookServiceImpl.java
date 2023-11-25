@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class BookServiceImpl implements BookService {
     private final AuthorService authorService;
 
     private final AuthorMapper authorMapper;
-    private final CustomBookRepository customBookRepository;
+    private final CustomBookRepository customBookRepositoryImpl;
 
     //TODO: добавить логгирование для методов
     @Override
@@ -45,7 +44,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional(readOnly = true)
     public List<BookDTO> getBooksByFilter(BookFilter filter) {
-        List<Book> filteredBooks = customBookRepository.findByFilter(filter);
+        List<Book> filteredBooks = customBookRepositoryImpl.findByFilter(filter);
         return filteredBooks.stream().map(bookMapper::toBookDTO).toList();
     }
     @Override
