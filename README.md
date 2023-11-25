@@ -23,13 +23,32 @@
 - [x] changelog для добавления автора
 - [x] changelog для связи автора и книги
 - [ ] ФИНАЛЬНАЯ ПРОВЕРКА РАБОТЫ СУЩНОСТЕЙ
-  - [ ] работоспособность BookMapper
-  - [ ] работоспособность AuthorMapper
-  - [ ] тестирование через Postman
+  - [x] работоспособность BookMapper
+  - [x] работоспособность AuthorMapper
+  - [x] тестирование через Postman
   - [ ] написание тестов
-    - [ ] тесты мапперов
+    - [x] тесты мапперов
     - [ ] тесты сервисов
  <hr>
 
-- [ ] гибкий фильтр
+- [x] гибкий фильтр
+  - [x] использование Criteria API
+  - [x] BookFilter
+  - [x] Spring Composable  Repository
+  - [ ] Spring Specification
 - [ ] Spring Security
+  - [ ] базовая авторизация
+    - [ ] entity User
+    - [ ] хеширование пароля
+    - [ ] миграция в liqueBase
+  - [ ] разделение по ролям
+  - [ ] разделение по ролям
+  - [ ] UserController
+    - [ ] UserDTO
+    - [ ] signup
+    - [ ] signin
+  - [ ] UserService
+  - [ ] UserMapper
+- [ ] дополнить базовую авторизацию JWT
+  - [ ] добавить токен
+  - [ ] научиться получать и работать с токеном
