@@ -1,6 +1,7 @@
 package com.project.book_shop.controllers;
 
 import com.project.book_shop.dto.BookDTO;
+import com.project.book_shop.entity.models.BookFilter;
 import com.project.book_shop.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,17 +46,23 @@ public class BookController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<BookDTO> updateBook(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
-//        BookDTO updatedBook = bookService.update(id, bookDTO);
-//        return updatedBook != null
-//                ? new ResponseEntity<>(updatedBook, HttpStatus.OK)
-//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> updateBook(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
+        BookDTO updatedBook = bookService.update(id, bookDTO);
+        return updatedBook != null
+                ? new ResponseEntity<>(updatedBook, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBookById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<BookDTO>> getBooksByFilter(@RequestBody BookFilter filter) {
+        List<BookDTO> filteredBooks = bookService.getBooksByFilter(filter);
+        return new ResponseEntity<>(filteredBooks, HttpStatus.OK);
     }
 }

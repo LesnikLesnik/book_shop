@@ -10,14 +10,45 @@
 - [x] Подключение БД PostrgesSQL
 - [x] LiquiBase
 - [x] changelog для book
-- [ ] использование DTO/mapstruct
+- [x] использование DTO/mapstruct
   - [x] book
-  - [ ] author
-- [ ] добавление сущности Author
-  - [ ] сервис
-  - [ ] контроллер
-  - [ ] репозиторий
-  - [ ] сущность
-  - [ ] enum
-- [ ] гибкий фильтр
+  - [x] author
+- [x] добавление сущности Author
+  - [x] сервис
+  - [x] контроллер
+  - [x] репозиторий
+  - [x] сущность
+- [x] изменение полей в Book/BookDTO
+- [x] связь книги с автором
+- [x] changelog для добавления автора
+- [x] changelog для связи автора и книги
+- [ ] ФИНАЛЬНАЯ ПРОВЕРКА РАБОТЫ СУЩНОСТЕЙ
+  - [x] работоспособность BookMapper
+  - [x] работоспособность AuthorMapper
+  - [x] тестирование через Postman
+  - [ ] написание тестов
+    - [x] тесты мапперов
+    - [ ] тесты сервисов
+ <hr>
+
+- [x] гибкий фильтр
+  - [x] использование Criteria API
+  - [x] BookFilter
+  - [x] Spring Composable  Repository
+  - [ ] Spring Specification
 - [ ] Spring Security
+  - [ ] базовая авторизация
+    - [ ] entity User
+    - [ ] хеширование пароля
+    - [ ] миграция в liqueBase
+  - [ ] разделение по ролям
+  - [ ] разделение по ролям
+  - [ ] UserController
+    - [ ] UserDTO
+    - [ ] signup
+    - [ ] signin
+  - [ ] UserService
+  - [ ] UserMapper
+- [ ] дополнить базовую авторизацию JWT
+  - [ ] добавить токен
+  - [ ] научиться получать и работать с токеном
