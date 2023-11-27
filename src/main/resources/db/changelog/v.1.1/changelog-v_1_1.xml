@@ -6,5 +6,7 @@
 
     <include file="insert-two-authors-and-books-for-test.xml" relativeToChangelogFile="true"/>
 
+    <include file="create-table-users.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>
