@@ -8,5 +8,7 @@
 
     <include file="create-table-users.xml" relativeToChangelogFile="true"/>
 
+    <include file="create-table-user_roles.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>

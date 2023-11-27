@@ -1,5 +1,6 @@
 package com.project.book_shop.entity;
 
+import com.project.book_shop.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,11 @@ public class User implements UserDetails {
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
+
     // security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,21 +57,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // Можно изменить логику в зависимости от потребностей проекта
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Аналогично isAccountNonExpired
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Аналогично isAccountNonExpired
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // Аналогично isAccountNonExpired
+        return true;
     }
 }
