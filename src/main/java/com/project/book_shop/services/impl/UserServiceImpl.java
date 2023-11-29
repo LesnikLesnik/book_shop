@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,11 +26,19 @@ public class UserServiceImpl implements UserService {
     }
 
     public void register(User user) {
-        if (userRepository.existsByLoginOrEmail(user.getLogin(), user.getEmail())) {
+        if (loadUserByUsername(user.getLogin()) != null) {
             throw new RuntimeException("User already exists with this login or email");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
+    @Override
+    public boolean authenticate(String login, String password) {
+        User user = (User) loadUserByUsername(login);
+        if (user != null) {
+            return user.getLogin().equals(login) && user.getPassword().equals(password);
+        }
+        return false;
+    }
 }

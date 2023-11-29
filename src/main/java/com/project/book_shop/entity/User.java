@@ -47,7 +47,7 @@ public class User implements UserDetails {
     // security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>(); // Пока что оставим пустым, в дальнейшем можно добавить роли
+        return new HashSet<>();
     }
 
     @Override
