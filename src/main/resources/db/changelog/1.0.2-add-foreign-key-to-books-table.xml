@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <!-- Change type of author column in books table -->
-    <changeSet id="change_author_column_type" author="lesnik">
+    <changeSet id="2" author="lesnik">
         <modifyDataType
                 tableName="books"
                 columnName="author"

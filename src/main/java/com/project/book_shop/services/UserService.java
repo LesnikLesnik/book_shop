@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    @Override
     public boolean authenticate(String login, String password) {
         User user = (User) loadUserByUsername(login);
         if (user != null) {

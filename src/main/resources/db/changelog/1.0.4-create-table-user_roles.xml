@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="2023-002-create-table-user_roles" author="yourUsername">
+    <changeSet id="4" author="yourUsername">
         <createTable tableName="user_roles">
             <column name="user_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_user_roles_users" referencedTableName="users" referencedColumnNames="user_id"/>

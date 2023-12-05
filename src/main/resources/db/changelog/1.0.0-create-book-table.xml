@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="create_table_book" author="lesnik">
+    <changeSet id="0.1" author="lesnik">
         <createTable tableName="books">
             <column autoIncrement="true" name="book_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
