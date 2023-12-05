@@ -1,6 +1,6 @@
 package com.project.book_shop.security;
 
-import com.project.book_shop.services.impl.UserServiceImpl;
+import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserServiceImpl customUserDetailsService;
+    private final UserService customUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

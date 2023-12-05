@@ -1,7 +1,7 @@
 package com.project.book_shop.controllers;
 
 import com.project.book_shop.dto.AuthorDTO;
-import com.project.book_shop.services.impl.AuthorServiceImpl;
+import com.project.book_shop.services.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorController {
 
-    private final AuthorServiceImpl authorService;
+    private final AuthorService authorService;
 
     @PostMapping
     public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO authorDTO) {

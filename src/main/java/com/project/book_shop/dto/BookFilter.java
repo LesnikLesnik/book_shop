@@ -1,4 +1,4 @@
-package com.project.book_shop.entity.models;
+package com.project.book_shop.dto;
 
 import com.project.book_shop.entity.enums.Cover;
 import lombok.Data;

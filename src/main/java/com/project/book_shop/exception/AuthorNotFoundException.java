@@ -1,4 +1,4 @@
-package com.project.book_shop.services.exception;
+package com.project.book_shop.exception;
 
 public class AuthorNotFoundException extends RuntimeException{
 

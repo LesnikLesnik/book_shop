@@ -4,8 +4,7 @@ import com.project.book_shop.dto.SignInDto;
 import com.project.book_shop.dto.SignUpDto;
 import com.project.book_shop.entity.User;
 import com.project.book_shop.entity.enums.Role;
-import com.project.book_shop.service.UserService;
-import com.project.book_shop.services.impl.UserServiceImpl;
+import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +19,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {

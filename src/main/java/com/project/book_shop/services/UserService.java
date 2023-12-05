@@ -1,14 +1,42 @@
 package com.project.book_shop.services;
 
 import com.project.book_shop.entity.User;
+import com.project.book_shop.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-public interface UserService extends UserDetailsService {
-   UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+@Service
+@RequiredArgsConstructor
+public class UserService implements UserDetailsService {
 
-    void register(User user);
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    boolean authenticate(String login, String password);
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with login: " + username));
+    }
+
+    public void register(User user) {
+        if (loadUserByUsername(user.getLogin()) != null) {
+            throw new RuntimeException("User already exists with this login or email");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public boolean authenticate(String login, String password) {
+        User user = (User) loadUserByUsername(login);
+        if (user != null) {
+            return user.getLogin().equals(login) && user.getPassword().equals(password);
+        }
+        return false;
+    }
 }
