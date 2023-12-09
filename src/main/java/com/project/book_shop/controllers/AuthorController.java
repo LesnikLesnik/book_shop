@@ -1,6 +1,6 @@
 package com.project.book_shop.controllers;
 
-import com.project.book_shop.dto.AuthorDTO;
+import com.project.book_shop.dto.AuthorDto;
 import com.project.book_shop.services.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,22 +17,22 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO authorDTO) {
-        AuthorDTO createdAuthor = authorService.saveAuthor(authorDTO);
+    public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorDto authorDTO) {
+        AuthorDto createdAuthor = authorService.saveAuthor(authorDTO);
         return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable Long id) {
-        AuthorDTO authorDTO = authorService.getAuthorById(id);
+    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable Long id) {
+        AuthorDto authorDTO = authorService.getAuthorById(id);
         return authorDTO != null
                 ? new ResponseEntity<>(authorDTO, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping
-    public ResponseEntity<List<AuthorDTO>> getAllAuthors() {
-        List<AuthorDTO> authors = authorService.getAllAuthors();
+    public ResponseEntity<List<AuthorDto>> getAllAuthors() {
+        List<AuthorDto> authors = authorService.getAllAuthors();
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 }

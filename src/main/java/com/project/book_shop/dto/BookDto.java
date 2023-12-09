@@ -4,7 +4,7 @@ import com.project.book_shop.entity.enums.Cover;
 import lombok.Data;
 
 @Data
-public class BookDTO {
+public class BookDto {
 
     private Long id;
 
