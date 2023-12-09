@@ -27,8 +27,9 @@ public class AuthorService {
 
     @Transactional(readOnly = true)
     public AuthorDto getAuthorById(Long id) {
-        Optional<Author> optionalAuthor = authorRepository.findById(id);
-        return optionalAuthor.map(authorMapper::toDto).orElseThrow(()-> new AuthorNotFoundException("Такой автора не найден"));
+        return authorRepository.findById(id)
+                .map(authorMapper::toDto)
+                .orElseThrow(() -> new AuthorNotFoundException("Автор с id: " + id + " - не найден"));
     }
 
     @Transactional(readOnly = true)

@@ -30,8 +30,11 @@ public class BookService {
 
     //TODO: добавить логгирование для методов
     @Transactional
-    public BookDto saveBook(BookDto bookDTO) {
-        Book book = bookMapper.toBook(bookDTO);
+    public BookDto saveBook(BookDto bookDto) {
+        if (bookDto.getId() != null) {
+            throw new RuntimeException("Книга с id: " + bookDto.getId() + " уже существует" );
+        }
+        Book book = bookMapper.toBook(bookDto);
         book = bookRepository.save(book);
         return bookMapper.toBookDTO(book);
     }
@@ -61,7 +64,7 @@ public class BookService {
     public BookDto getBookByName(String name) {
         Optional<Book> optionalBook = bookRepository.findByName(name);
         return optionalBook.map(bookMapper::toBookDTO)
-                .orElseThrow(()-> new BookNotFoundException("Книга " + name + " не найдена!"));
+                .orElseThrow(()-> new BookNotFoundException(name));
     }
 
     @Transactional(readOnly = true)
@@ -69,40 +72,16 @@ public class BookService {
         Optional<Book> optionalBook = bookRepository.findById(id);
 
         return optionalBook.map(bookMapper::toBookDTO)
-                .orElseThrow(()-> new BookNotFoundException("Книга с " + id + " не найдена!"));
+                .orElseThrow(()-> new BookNotFoundException(id.toString()));
     }
 
-    //TODO: сделать рефактор метода
+    public BookDto update(BookDto bookDto){
+        return bookRepository.findById(bookDto.getId())
+                .map(existingBook -> bookMapper.updateBook(existingBook, bookDto))
+                .map(bookRepository::save)
+                .map(bookMapper::toBookDTO)
+                .orElseThrow(() -> new BookNotFoundException(bookDto.getId().toString()));
 
-    @Transactional
-    public BookDto update(Long id, BookDto bookDTO) {
-        Optional<Book> optionalBook = bookRepository.findById(id);
-
-        if (optionalBook.isPresent()) {
-            Book existingBook = optionalBook.get();
-
-            // Проверяем, существует ли автор с заданным идентификатором
-            Long authorId = bookDTO.getAuthorId();
-            AuthorDto authorDTO = authorService.getAuthorById(authorId);
-            Author author = authorMapper.toAuthor(authorDTO);
-
-
-            if (author != null) {
-                // Обновляем только те поля, которые необходимо изменить
-                existingBook.setName(bookDTO.getName());
-                existingBook.setBrand(bookDTO.getBrand());
-                existingBook.setCover(bookDTO.getCover());
-                existingBook.setAuthor(author);
-                existingBook.setCount(bookDTO.getCount());
-
-                existingBook = bookRepository.save(existingBook);
-
-                return bookMapper.toBookDTO(existingBook);
-            }
-        }
-
-        // Если книга не найдена или автор не найден, возвращаем null
-        return null;
     }
 
 

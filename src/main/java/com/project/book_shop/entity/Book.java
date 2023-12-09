@@ -10,13 +10,16 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "books")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Book {
     @Id
     @Column(name = "book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "name")
+    @EqualsAndHashCode.Include
     private String name;
 
     @Column(name = "brand")
