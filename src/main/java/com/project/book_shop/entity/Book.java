@@ -7,13 +7,13 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -26,8 +26,8 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Cover cover;
 
-    @JoinColumn(name = "author")
     @ManyToOne
+    @JoinColumn(name = "author")
     private Author author;
 
     @Column(name = "count")
