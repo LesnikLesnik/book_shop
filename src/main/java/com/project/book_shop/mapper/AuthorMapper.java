@@ -10,18 +10,18 @@ import org.mapstruct.Named;
 import java.util.List;
 
 @Mapper
-public interface AuthorMapper {
+public abstract class AuthorMapper {
 
     @Mapping(target = "books", ignore = true)
-    Author toAuthor(AuthorDto dto);
+    public abstract Author toAuthor(AuthorDto dto);
 
     @Mapping(target = "authorName", expression = "java(entity.getFirstName() + \" \" + entity.getLastName())")
     @Mapping(target = "bookIds", source = "entity.books", qualifiedByName = "extractBookIds")
-    AuthorDto toDto(Author entity);
+    public abstract AuthorDto toDto(Author entity);
 
     // метод для извлечения только идентификаторов книг
     @Named("extractBookIds")
-    default List<Long> extractBookIds(List<Book> books) {
+    protected List<Long> extractBookIds(List<Book> books) {
         return books.stream().map(Book::getId).toList();
     }
 }

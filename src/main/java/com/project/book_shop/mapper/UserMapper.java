@@ -15,7 +15,7 @@ import com.project.book_shop.entity.enums.Role;
 public abstract class UserMapper {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    protected PasswordEncoder passwordEncoder;
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(signUpDto.getPassword()))")
     @Mapping(target = "login", source = "signUpDto.login")

@@ -14,7 +14,7 @@
     </changeSet>
 
     <!-- Add foreign key to books table -->
-    <changeSet id="add_foreign_key_to_books" author="lesnik">
+    <changeSet id="2.1" author="lesnik">
         <addForeignKeyConstraint
                 baseTableName="books"
                 baseColumnNames="author"

@@ -33,14 +33,4 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    //TODO: разобраться с необходимостью реализации метода authenticate
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody SignInDto signInDto) {
-        boolean isAuthenticated = userService.authenticate(signInDto.getLogin(), signInDto.getPassword());
-        if (isAuthenticated) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }
