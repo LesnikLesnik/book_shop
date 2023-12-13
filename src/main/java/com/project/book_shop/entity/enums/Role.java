@@ -1,6 +1,6 @@
 package com.project.book_shop.entity.enums;
 
-public enum Role {
+public enum Role  {
     ADMIN,
     USER,
     GUEST

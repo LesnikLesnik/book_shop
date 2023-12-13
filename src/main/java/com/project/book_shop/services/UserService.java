@@ -31,11 +31,4 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public boolean authenticate(String login, String password) {
-        User user = (User) loadUserByUsername(login);
-        if (user != null) {
-            return user.getLogin().equals(login) && user.getPassword().equals(password);
-        }
-        return false;
-    }
 }
