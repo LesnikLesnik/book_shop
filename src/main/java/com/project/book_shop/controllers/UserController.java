@@ -21,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/registration")
+    @PostMapping("/signUp")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
         User newUser = new User();
         newUser.setLogin(signUpDto.getLogin());

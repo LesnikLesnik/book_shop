@@ -10,32 +10,32 @@ import com.project.book_shop.mapper.BookMapper;
 import com.project.book_shop.repositories.book.BookRepository;
 import com.project.book_shop.exception.BookNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
-    //TODO: удалить лишние методы
-
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
-    private final AuthorService authorService;
 
-    private final AuthorMapper authorMapper;
-
-    //TODO: добавить логгирование для методов
     @Transactional
     public BookDto saveBook(BookDto bookDto) {
+        log.info("Starting to save book: {}", bookDto);
+
         if (bookDto.getId() != null) {
             throw new RuntimeException("Книга с id: " + bookDto.getId() + " уже существует" );
         }
         Book book = bookMapper.toBook(bookDto);
         book = bookRepository.save(book);
+
+        log.info("Book saved successfully: {}", bookDto);
         return bookMapper.toBookDTO(book);
     }
 

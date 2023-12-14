@@ -25,7 +25,9 @@ public class UserService implements UserDetailsService {
 
     public void register(User user) {
         if (loadUserByUsername(user.getLogin()) != null) {
-            throw new RuntimeException("User already exists with this login or email");
+            throw new RuntimeException("User already exists with this login: " + user.getLogin());
+        } else if (loadUserByUsername(user.getEmail()) != null) {
+            throw new RuntimeException("User already exists with this email: " + user.getLogin());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
