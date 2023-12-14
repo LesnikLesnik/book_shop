@@ -1,9 +1,9 @@
 package com.project.book_shop.controllers;
 
-import com.project.book_shop.dto.SignInDto;
-import com.project.book_shop.dto.SignUpDto;
+import com.project.book_shop.dto.userDto.SignUpDto;
 import com.project.book_shop.entity.User;
 import com.project.book_shop.entity.enums.Role;
+import com.project.book_shop.mapper.UserMapper;
 import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +20,11 @@ import java.util.Collections;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
-        User newUser = new User();
-        newUser.setLogin(signUpDto.getLogin());
-        newUser.setEmail(signUpDto.getEmail());
-        newUser.setPassword(signUpDto.getPassword());
-        newUser.setRoles(Collections.singleton(Role.GUEST));
-
+    public ResponseEntity<Void> registerUser(@RequestBody SignUpDto signUpDto) {
+        User newUser = userMapper.signUpDtoToUser(signUpDto);
         userService.register(newUser);
         return ResponseEntity.ok().build();
     }
