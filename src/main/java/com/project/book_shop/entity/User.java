@@ -1,6 +1,6 @@
 package com.project.book_shop.entity;
 
-import com.project.book_shop.entity.enums.Role;
+import com.project.book_shop.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,14 +40,14 @@ public class User implements UserDetails {
     private LocalDateTime createdDate;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles = new HashSet<>();
 
     // security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>();
+        return roles;
     }
 
     @Override

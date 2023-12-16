@@ -2,7 +2,6 @@ package com.project.book_shop.controllers;
 
 import com.project.book_shop.dto.userDto.SignUpDto;
 import com.project.book_shop.entity.User;
-import com.project.book_shop.entity.enums.Role;
 import com.project.book_shop.mapper.UserMapper;
 import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/user")

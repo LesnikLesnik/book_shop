@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
-import com.project.book_shop.entity.enums.Role;
+import com.project.book_shop.enums.Role;
 
 @Mapper
 public abstract class UserMapper {
