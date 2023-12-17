@@ -4,8 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <include file="v.1.0/changelog.xml" relativeToChangelogFile="true"/>
-
-    <include file="v.1.1/changelog-v_1_1.xml" relativeToChangelogFile="true"/>
+    <include file="db/changelog/1.0.0-create-book-table.xml"/>
+    <include file="db/changelog/1.0.1-create-author-table.xml"/>
+    <include file="db/changelog/1.0.2-add-foreign-key-to-books-table.xml"/>
+    <include file="db/changelog/1.0.3-create-table-users.xml"/>
+    <include file="db/changelog/1.0.4-create-table-user_roles.xml"/>
 
 </databaseChangeLog>

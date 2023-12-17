@@ -1,7 +1,7 @@
-package com.project.book_shop.repositories.custom;
+package com.project.book_shop.repositories.book;
 
 import com.project.book_shop.entity.Book;
-import com.project.book_shop.entity.models.BookFilter;
+import com.project.book_shop.dto.BookFilter;
 
 import java.util.List;
 

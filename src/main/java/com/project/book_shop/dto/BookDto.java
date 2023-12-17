@@ -1,10 +1,10 @@
 package com.project.book_shop.dto;
 
-import com.project.book_shop.entity.enums.Cover;
+import com.project.book_shop.enums.Cover;
 import lombok.Data;
 
 @Data
-public class BookDTO {
+public class BookDto {
 
     private Long id;
 
