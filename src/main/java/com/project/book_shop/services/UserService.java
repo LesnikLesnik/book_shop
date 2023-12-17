@@ -3,6 +3,7 @@ package com.project.book_shop.services;
 import com.project.book_shop.entity.User;
 import com.project.book_shop.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    @Lazy
     private final PasswordEncoder passwordEncoder;
 
 
