@@ -4,6 +4,7 @@ import com.project.book_shop.dto.userDto.SignInDto;
 import com.project.book_shop.dto.userDto.SignUpDto;
 import com.project.book_shop.entity.User;
 import com.project.book_shop.mapper.UserMapper;
+import com.project.book_shop.security.jms.EmailService;
 import com.project.book_shop.security.jwt.JwtUtils;
 import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.management.remote.JMXAuthenticator;
 
@@ -28,11 +26,13 @@ public class UserController {
     private final UserMapper userMapper;
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     @PostMapping("/signUp")
     public ResponseEntity<Void> registerUser(@RequestBody SignUpDto signUpDto) {
         User newUser = userMapper.signUpDtoToUser(signUpDto);
         userService.register(newUser);
+        emailService.sendRegistrationMessage(newUser.getEmail());
         return ResponseEntity.ok().build();
     }
     @PostMapping("/signIn")

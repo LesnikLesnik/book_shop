@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/user/signup", "/user/signin").permitAll()
+                        .requestMatchers("/user/send").permitAll() //TODO: решить какой уровень доступа дать этому рассыльщику мессаджей
                         .requestMatchers(HttpMethod.POST, "/authors/**", "/api/books/create").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/books/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
