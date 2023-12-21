@@ -44,6 +44,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "email_token")
+    private String emailToken;
+
     // security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,5 +1,6 @@
 package com.project.book_shop.security;
 
+import com.project.book_shop.enums.Role;
 import com.project.book_shop.security.jwt.AuthEntryPointJwt;
 import com.project.book_shop.security.jwt.AuthTokenFilter;
 import com.project.book_shop.services.UserService;
@@ -33,8 +34,8 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/user/signup", "/user/signin").permitAll()
-                        .requestMatchers("/user/send").permitAll() //TODO: решить какой уровень доступа дать этому рассыльщику мессаджей
+                        .requestMatchers("/users/register", "/users/signin").permitAll()
+                        .requestMatchers("/users/register/{token}").hasRole("GUEST")
                         .requestMatchers(HttpMethod.POST, "/authors/**", "/api/books/create").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/books/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")

@@ -9,5 +9,6 @@
     <include file="db/changelog/1.0.2-add-foreign-key-to-books-table.xml"/>
     <include file="db/changelog/1.0.3-create-table-users.xml"/>
     <include file="db/changelog/1.0.4-create-table-user_roles.xml"/>
+    <include file="db/changelog/1.1.0-add-column-emailToken-to-users-table.xml"/>
 
 </databaseChangeLog>

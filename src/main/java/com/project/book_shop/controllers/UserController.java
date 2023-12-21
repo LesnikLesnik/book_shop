@@ -15,11 +15,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.remote.JMXAuthenticator;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -28,11 +28,18 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/register")
     public ResponseEntity<Void> registerUser(@RequestBody SignUpDto signUpDto) {
         User newUser = userMapper.signUpDtoToUser(signUpDto);
-        userService.register(newUser);
-        emailService.sendRegistrationMessage(newUser.getEmail());
+        UUID token = UUID.randomUUID();
+        userService.register(newUser, token);
+        emailService.sendRegistrationMessage(newUser.getEmail(), token);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/register/{token}")
+    public ResponseEntity<Void> confirmRegistration(@PathVariable UUID token) {
+        userService.activateUser(token);
         return ResponseEntity.ok().build();
     }
     @PostMapping("/signIn")
