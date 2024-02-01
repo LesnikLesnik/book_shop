@@ -1,9 +1,7 @@
 package com.project.book_shop.security;
 
-import com.project.book_shop.enums.Role;
 import com.project.book_shop.security.jwt.AuthEntryPointJwt;
 import com.project.book_shop.security.jwt.AuthTokenFilter;
-import com.project.book_shop.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

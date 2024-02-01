@@ -1,6 +1,6 @@
 package com.project.book_shop.mapper;
 
-import com.project.book_shop.dto.BookDto;
+import com.project.book_shop.DTO.BookDto;
 import com.project.book_shop.entity.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

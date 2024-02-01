@@ -1,12 +1,12 @@
-package com.project.book_shop.controllers;
+package com.project.book_shop.controller;
 
-import com.project.book_shop.dto.userDto.SignInDto;
-import com.project.book_shop.dto.userDto.SignUpDto;
+import com.project.book_shop.DTO.userDto.SignInDto;
+import com.project.book_shop.DTO.userDto.SignUpDto;
 import com.project.book_shop.entity.User;
 import com.project.book_shop.mapper.UserMapper;
 import com.project.book_shop.security.jms.EmailService;
 import com.project.book_shop.security.jwt.JwtUtils;
-import com.project.book_shop.services.UserService;
+import com.project.book_shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

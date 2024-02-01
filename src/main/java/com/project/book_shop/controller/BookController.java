@@ -1,8 +1,8 @@
-package com.project.book_shop.controllers;
+package com.project.book_shop.controller;
 
-import com.project.book_shop.dto.BookDto;
-import com.project.book_shop.dto.BookFilter;
-import com.project.book_shop.services.BookService;
+import com.project.book_shop.DTO.BookDto;
+import com.project.book_shop.DTO.BookFilter;
+import com.project.book_shop.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

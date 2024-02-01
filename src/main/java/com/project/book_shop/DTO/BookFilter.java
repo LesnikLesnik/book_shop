@@ -1,20 +1,15 @@
-package com.project.book_shop.dto;
+package com.project.book_shop.DTO;
 
 import com.project.book_shop.enums.Cover;
 import lombok.Data;
 
 @Data
-public class BookDto {
-
-    private Long id;
-
+public class BookFilter {
     private String name;
-
     private String brand;
-
     private Cover cover;
-
-    private Long authorId;
-
+    private String authorFirstName;
+    private String authorLastName;
     private Integer count;
 }
+

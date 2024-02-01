@@ -1,13 +1,10 @@
-package com.project.book_shop.services;
+package com.project.book_shop.service;
 
-import com.project.book_shop.dto.AuthorDto;
-import com.project.book_shop.dto.BookDto;
-import com.project.book_shop.entity.Author;
+import com.project.book_shop.DTO.BookDto;
 import com.project.book_shop.entity.Book;
-import com.project.book_shop.dto.BookFilter;
-import com.project.book_shop.mapper.AuthorMapper;
+import com.project.book_shop.DTO.BookFilter;
 import com.project.book_shop.mapper.BookMapper;
-import com.project.book_shop.repositories.book.BookRepository;
+import com.project.book_shop.repository.book.BookRepository;
 import com.project.book_shop.exception.BookNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

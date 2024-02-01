@@ -1,8 +1,8 @@
-package com.project.book_shop.services;
+package com.project.book_shop.service;
 
 import com.project.book_shop.entity.User;
 import com.project.book_shop.enums.Role;
-import com.project.book_shop.repositories.UserRepository;
+import com.project.book_shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;

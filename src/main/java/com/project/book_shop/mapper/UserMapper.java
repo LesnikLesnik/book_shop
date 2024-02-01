@@ -1,6 +1,6 @@
 package com.project.book_shop.mapper;
 
-import com.project.book_shop.dto.userDto.SignUpDto;
+import com.project.book_shop.DTO.userDto.SignUpDto;
 import com.project.book_shop.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

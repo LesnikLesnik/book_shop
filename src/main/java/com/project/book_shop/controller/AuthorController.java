@@ -1,7 +1,7 @@
-package com.project.book_shop.controllers;
+package com.project.book_shop.controller;
 
-import com.project.book_shop.dto.AuthorDto;
-import com.project.book_shop.services.AuthorService;
+import com.project.book_shop.DTO.AuthorDto;
+import com.project.book_shop.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
