@@ -6,6 +6,8 @@
     <modules>
         <module>config-service</module>
         <module>account-service</module>
+        <module>gateway</module>
+        <module>bill-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -36,13 +38,13 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

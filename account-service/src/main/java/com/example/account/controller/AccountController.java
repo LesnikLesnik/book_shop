@@ -2,6 +2,7 @@ package com.example.account.controller;
 
 import com.example.account.dto.AccountRequestDto;
 import com.example.account.dto.AccountResponseDto;
+import com.example.account.dto.AddBillRequestDto;
 import com.example.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,11 @@ public class AccountController {
     @PutMapping("/{id}")
     public AccountResponseDto updateAccount(@PathVariable UUID id, @RequestBody AccountRequestDto accountRequestDto){
         return accountService.updateAccount(id, accountRequestDto);
+    }
+
+    @PutMapping("/bill")
+    public AccountResponseDto addBillToAccount(@RequestBody AddBillRequestDto addBillRequestDto){
+        return accountService.addBillToAccount(addBillRequestDto);
     }
 
     @DeleteMapping("/{id}")

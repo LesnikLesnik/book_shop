@@ -2,6 +2,7 @@ package com.example.account.service;
 
 import com.example.account.dto.AccountRequestDto;
 import com.example.account.dto.AccountResponseDto;
+import com.example.account.dto.AddBillRequestDto;
 import com.example.account.entity.Account;
 import com.example.account.exception.AccountNotFoundException;
 import com.example.account.mapper.AccountMapper;
@@ -60,5 +61,15 @@ public class AccountService {
     public void deleteAccount(UUID id) {
         log.info("Delete account with id {}", id);
         accountRepository.deleteById(id);
+    }
+
+    public AccountResponseDto addBillToAccount(AddBillRequestDto addBillRequestDto) {
+        Account account = accountRepository.findById(addBillRequestDto.getAccountId())
+                .orElseThrow(() -> new AccountNotFoundException("Аккаунт с id: " + addBillRequestDto.getAccountId() + " не найден"));
+        log.info("Account before add bill {}", account);
+        account.setBillId(addBillRequestDto.getBillId());
+        accountRepository.save(account);
+        log.info("Account with new bill {}", account);
+        return accountMapper.toResponseDto(account);
     }
 }

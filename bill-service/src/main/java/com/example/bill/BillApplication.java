@@ -1,5 +1,4 @@
-package com.example.account;
-
+package com.example.bill;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @SpringBootApplication
-public class AccountApplication
+public class BillApplication
 {
     public static void main( String[] args ) {
-        SpringApplication.run(AccountApplication.class, args);
+        SpringApplication.run(BillApplication.class, args);
     }
 }
