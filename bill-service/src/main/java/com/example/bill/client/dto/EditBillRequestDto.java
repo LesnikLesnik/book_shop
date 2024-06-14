@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class AddBillRequestDto {
+public class EditBillRequestDto {
 
     private UUID accountId;
 

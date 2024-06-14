@@ -8,6 +8,7 @@
         <module>account-service</module>
         <module>gateway</module>
         <module>bill-service</module>
+        <module>eureka</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

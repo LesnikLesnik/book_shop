@@ -66,10 +66,10 @@ public class AccountService {
     public AccountResponseDto addBillToAccount(AddBillRequestDto addBillRequestDto) {
         Account account = accountRepository.findById(addBillRequestDto.getAccountId())
                 .orElseThrow(() -> new AccountNotFoundException("Аккаунт с id: " + addBillRequestDto.getAccountId() + " не найден"));
-        log.info("Account before add bill {}", account);
+        log.info("Account before edit bill {}", account);
         account.setBillId(addBillRequestDto.getBillId());
         accountRepository.save(account);
-        log.info("Account with new bill {}", account);
+        log.info("Account with edited bill {}", account);
         return accountMapper.toResponseDto(account);
     }
 }

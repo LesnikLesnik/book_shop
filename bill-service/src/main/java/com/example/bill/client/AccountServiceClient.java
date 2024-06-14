@@ -1,7 +1,7 @@
 package com.example.bill.client;
 
 import com.example.bill.client.dto.AccountResponseDto;
-import com.example.bill.client.dto.AddBillRequestDto;
+import com.example.bill.client.dto.EditBillRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +14,9 @@ import java.util.UUID;
 public interface AccountServiceClient {
 
     @GetMapping(value = "/api/accounts/{id}")
-    AccountResponseDto getAccount(@PathVariable("id") UUID id);
+    AccountResponseDto getAccount(@PathVariable(value = "id") UUID id);
 
-    @PutMapping("/bill")
-    AccountResponseDto addBillToAccount(@RequestBody AddBillRequestDto addBillRequestDto);
+    @PutMapping("/api/accounts/bill")
+    AccountResponseDto editBillOnAccount(@RequestBody EditBillRequestDto editBillRequestDto);
 }
+

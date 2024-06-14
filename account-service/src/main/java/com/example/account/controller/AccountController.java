@@ -40,7 +40,7 @@ public class AccountController {
     }
 
     @PutMapping("/bill")
-    public AccountResponseDto addBillToAccount(@RequestBody AddBillRequestDto addBillRequestDto){
+    public AccountResponseDto editBillOnAccount(@RequestBody AddBillRequestDto addBillRequestDto){
         return accountService.addBillToAccount(addBillRequestDto);
     }
 
