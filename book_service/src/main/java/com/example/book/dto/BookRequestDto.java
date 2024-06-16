@@ -14,4 +14,6 @@ public class BookRequestDto {
     private UUID authorId;
 
     private Integer cost;
+
+    private Integer yearOfCreate;
 }

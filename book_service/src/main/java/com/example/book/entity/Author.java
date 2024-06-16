@@ -21,8 +21,12 @@ public class Author {
     @EqualsAndHashCode.Include
     private UUID id;
 
+    //firstName and lastName mapping and save like 'name'
     private String firstName;
 
     private String lastName;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
 }

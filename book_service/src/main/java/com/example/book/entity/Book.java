@@ -17,13 +17,18 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @Column(name = "")
+    @Column(name = "id")
     @EqualsAndHashCode.Include
     private UUID id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "author_id")
     private UUID authorId;
 
+    @Column(name = "cost")
     private Integer cost;
+
+    private Integer yearOfCreate;
 }
