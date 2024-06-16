@@ -33,7 +33,7 @@ public class Account {
     @Column(name="password")
     private String password;
 
-    @Column(name="creationDate")
+    @Column(name="creation_date")
     private Date creationDate;
 
     @Column(name="bill_id")
