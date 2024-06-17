@@ -13,7 +13,7 @@ public class BookResponseDto {
 
     private String title;
 
-    private UUID authorId;
+    private String authorName;
 
     private Integer cost;
 
