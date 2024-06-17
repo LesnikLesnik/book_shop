@@ -4,6 +4,8 @@ import com.example.book.dto.AuthorRequestDto;
 import com.example.book.dto.AuthorResponseDto;
 import com.example.book.service.AuthorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -25,9 +27,9 @@ public class AuthorController {
         return authorService.getAuthor(id);
     }
 
-//    @GetMapping
-//    public AuthorResponseDto getAuthorByName(@RequestBody AuthorRequestDto authorRequestDto){
-//        return authorService.getAuthorByName(authorRequestDto);
-//    }
+    @GetMapping("/author")
+    public Page<AuthorResponseDto> getAuthorByName(@RequestBody AuthorRequestDto authorRequestDto, Pageable pageable){
+        return authorService.getAuthorByName(authorRequestDto, pageable);
+    }
 
 }
