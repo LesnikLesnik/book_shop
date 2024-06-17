@@ -5,6 +5,7 @@ import com.example.book.dto.AuthorResponseDto;
 import com.example.book.entity.Author;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper
 public interface AuthorMapper {
@@ -14,4 +15,7 @@ public interface AuthorMapper {
 
     @Mapping(target = "name", expression = "java(author.getFirstName() + \" \" + author.getLastName())")
     AuthorResponseDto toResponse(Author author);
+
+    @Mapping(target = "id", ignore = true)
+    void updateAuthorFromDto(AuthorRequestDto authorRequestDto, @MappingTarget Author author);
 }

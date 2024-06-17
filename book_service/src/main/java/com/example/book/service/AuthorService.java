@@ -2,10 +2,14 @@ package com.example.book.service;
 
 import com.example.book.dto.AuthorRequestDto;
 import com.example.book.dto.AuthorResponseDto;
+import com.example.book.dto.BookResponseDto;
 import com.example.book.entity.Author;
+import com.example.book.entity.Book;
 import com.example.book.exception.AuthorServiceException;
 import com.example.book.mapper.AuthorMapper;
+import com.example.book.mapper.BookMapper;
 import com.example.book.repository.AuthorRepository;
+import com.example.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,9 +26,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthorService {
 
+    private final AuthorMapper authorMapper;
+
+    private final BookMapper bookMapper;
+
     private final AuthorRepository authorRepository;
 
-    private final AuthorMapper authorMapper;
+    private final BookRepository bookRepository;
+
     public UUID addAuthor(AuthorRequestDto authorRequestDto) {
         log.info("start to add author");
         Optional<Author> authorForCheck = authorRepository.findFirstByFirstNameAndLastName(authorRequestDto.getFirstName(), authorRequestDto.getLastName());
@@ -62,5 +71,39 @@ public class AuthorService {
 
         log.info("Found {} authors with name {} {}", authors.getSize(), firstName, lastName);
         return authors.map(authorMapper::toResponse);
+    }
+
+    public AuthorResponseDto updateAuthor(UUID id, AuthorRequestDto authorRequestDto) {
+        Author authorToUpdate = authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorServiceException("Автор с id " + id + " не найден"));
+        log.info("Author with id has been found: {}", authorToUpdate);
+
+        authorMapper.updateAuthorFromDto(authorRequestDto, authorToUpdate);
+        Author updatedAuthor = authorRepository.save(authorToUpdate);
+
+        log.info("The author's update with id {} was completed successfully: {}", id, updatedAuthor);
+        return authorMapper.toResponse(updatedAuthor);
+    }
+
+    public Page<BookResponseDto> getBooksByAuthorId(UUID authorId, Pageable pageable) {
+        Page<Book> books = bookRepository.findByAuthorId(authorId, pageable);
+        if (books.isEmpty()) {
+            throw new AuthorServiceException("У автора с id " + authorId + " нет книг");
+        }
+        return books.map(bookMapper::toResponse);
+    }
+
+    public void deleteAuthor(UUID id) {
+        if (!authorRepository.existsById(id)) {
+            throw new AuthorServiceException("Автор с id " + id + " не найден");
+        }
+        log.info("Delete author with id {}", id);
+
+        List<Book> booksByAuthor = bookRepository.findByAuthorId(id);
+        bookRepository.deleteAll(booksByAuthor);
+
+        authorRepository.deleteById(id);
+
+        log.info("The author with id {} and all his books have been successfully deleted", id);
     }
 }
