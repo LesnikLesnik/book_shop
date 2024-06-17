@@ -1,4 +1,9 @@
 package com.example.book.repository;
 
-public class BookRepository {
+import com.example.book.entity.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface BookRepository extends JpaRepository<Book, UUID> {
 }

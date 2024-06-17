@@ -1,6 +1,8 @@
 package com.example.book.controller;
 
+import com.example.book.dto.BookRequestDto;
 import com.example.book.dto.BookResponseDto;
+import com.example.book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,7 +20,7 @@ public class BookController {
 
     private final BookService bookService;
 
-    public UUid createBook(@RequestBody BookRequestDto bookRequestDto) {
+    public UUID createBook(@RequestBody BookRequestDto bookRequestDto) {
         return bookService.create(bookRequestDto);
     }
 

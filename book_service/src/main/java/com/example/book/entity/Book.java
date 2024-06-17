@@ -1,9 +1,10 @@
 package com.example.book.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.CollectionIdJdbcTypeCode;
-import org.mapstruct.Mapping;
 
 import java.util.UUID;
 
