@@ -25,6 +25,9 @@ public class AuthorController {
         return authorService.getAuthor(id);
     }
 
-    @GetMapping
-    public AuthorResponseDto getAuthorByName()
+//    @GetMapping
+//    public AuthorResponseDto getAuthorByName(@RequestBody AuthorRequestDto authorRequestDto){
+//        return authorService.getAuthorByName(authorRequestDto);
+//    }
+
 }

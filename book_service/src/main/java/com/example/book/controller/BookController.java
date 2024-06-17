@@ -20,17 +20,17 @@ public class BookController {
 
     private final BookService bookService;
 
-    public UUID createBook(@RequestBody BookRequestDto bookRequestDto) {
-        return bookService.create(bookRequestDto);
-    }
-
-    public BookResponseDto getBookById(@PathVariable UUID id) {
-        return bookService.getBookById(id);
-    }
-
-    public BookResponseDto getAllBooks(@PageableDefault(size = 15) Pageable pageable) {
-        return bookService.getAllBooks(pageable);
-    }
+//    public UUID createBook(@RequestBody BookRequestDto bookRequestDto) {
+//        return bookService.create(bookRequestDto);
+//    }
+//
+//    public BookResponseDto getBookById(@PathVariable UUID id) {
+//        return bookService.getBookById(id);
+//    }
+//
+//    public BookResponseDto getAllBooks(@PageableDefault(size = 15) Pageable pageable) {
+//        return bookService.getAllBooks(pageable);
+//    }
 
 
 }

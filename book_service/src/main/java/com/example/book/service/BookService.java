@@ -12,13 +12,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookService {
 
-    public UUID create(BookRequestDto bookRequestDto) {
-
-    }
-
-    public BookResponseDto getBookById(UUID id) {
-    }
-
-    public BookResponseDto getAllBooks(Pageable pageable) {
-    }
+//    public UUID create(BookRequestDto bookRequestDto) {
+//
+//    }
+//
+//    public BookResponseDto getBookById(UUID id) {
+//    }
+//
+//    public BookResponseDto getAllBooks(Pageable pageable) {
+//    }
 }
