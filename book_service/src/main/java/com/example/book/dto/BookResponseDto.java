@@ -18,4 +18,6 @@ public class BookResponseDto {
     private Integer cost;
 
     private Integer yearOfCreate;
+
+    private Integer pages;
 }

@@ -31,5 +31,9 @@ public class Book {
     @Column(name = "cost")
     private Integer cost;
 
+    @Column(name = "yearOfCreate")
     private Integer yearOfCreate;
+
+    @Column(name = "pages")
+    private Integer pages;
 }

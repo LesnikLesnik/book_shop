@@ -16,4 +16,6 @@ public class BookRequestDto {
     private Integer cost;
 
     private Integer yearOfCreate;
+
+    private Integer pages;
 }
