@@ -1,6 +1,7 @@
 package com.example.book.service;
 
 import com.example.book.dto.AuthorResponseDto;
+import com.example.book.dto.BookForSaleResponseDto;
 import com.example.book.dto.BookRequestDto;
 import com.example.book.dto.BookResponseDto;
 import com.example.book.entity.Book;
@@ -62,6 +63,13 @@ public class BookService {
         bookRepository.save(bookToUpdate);
         log.info("Book after update {}", bookToUpdate);
         return bookMapper.toResponse(bookToUpdate);
+    }
+
+    public BookForSaleResponseDto getBookForSale(UUID id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookServiceException("Книга с id" + id + " не найдена"));
+        log.info("A book {} has been found for sale", book);
+        return new BookForSaleResponseDto(book.getId(), book.getCost());
     }
 
     public void delete(UUID id) {

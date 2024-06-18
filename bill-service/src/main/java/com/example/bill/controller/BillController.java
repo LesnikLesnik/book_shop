@@ -30,6 +30,11 @@ public class BillController {
         return billService.deposit(id, deposit);
     }
 
+    @PutMapping("/{billId}/buyBook/{bookId}")
+    public BillResponseDto buyBook(@PathVariable UUID billId, @PathVariable UUID bookId) {
+        return billService.buyBook(billId, bookId);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id){
         billService.deleteBill(id);

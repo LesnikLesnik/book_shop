@@ -3,6 +3,7 @@ package com.example.account.service;
 import com.example.account.dto.AccountRequestDto;
 import com.example.account.dto.AccountResponseDto;
 import com.example.account.dto.AddBillRequestDto;
+import com.example.account.dto.AddBookRequestDto;
 import com.example.account.entity.Account;
 import com.example.account.exception.AccountNotFoundException;
 import com.example.account.mapper.AccountMapper;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -72,4 +75,18 @@ public class AccountService {
         log.info("Account with edited bill {}", account);
         return accountMapper.toResponseDto(account);
     }
+
+    public AccountResponseDto addBookToAccount(AddBookRequestDto addBookRequestDto) {
+        Account account = accountRepository.findById(addBookRequestDto.getAccountId())
+                .orElseThrow(() -> new AccountNotFoundException("Аккаунт с id: " + addBookRequestDto.getAccountId() + " не найден"));
+        log.info("Account before adding the book {}", account);
+
+        List<UUID> books = account.getBooks() != null ? account.getBooks() : new ArrayList<>();
+        books.add(addBookRequestDto.getBookId());
+        account.setBooks(books);
+
+        Account savedAccount = accountRepository.save(account);
+        return accountMapper.toResponseDto(savedAccount);
+    }
+
 }

@@ -1,8 +1,11 @@
 package com.example.bill.service;
 
-import com.example.bill.client.AccountServiceClient;
-import com.example.bill.client.dto.AccountResponseDto;
-import com.example.bill.client.dto.EditBillRequestDto;
+import com.example.bill.client.account.AccountServiceClient;
+import com.example.bill.client.account.dto.AccountResponseDto;
+import com.example.bill.client.account.dto.AddBookRequestDto;
+import com.example.bill.client.account.dto.EditBillRequestDto;
+import com.example.bill.client.book.BookForSaleResponseDto;
+import com.example.bill.client.book.BookServiceClient;
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.entity.Bill;
 import com.example.bill.exception.AccountException;
@@ -26,6 +29,9 @@ public class BillService {
     private final BillMapper billMapper;
 
     private final AccountServiceClient accountServiceClient;
+
+    private final BookServiceClient bookServiceClient;
+
     public BillResponseDto createBill(UUID accountId, BigDecimal amount) {
         log.info("start find, {}, {}", accountId, amount);
         AccountResponseDto accountById = getAccountById(accountId);
@@ -72,6 +78,21 @@ public class BillService {
         return billMapper.toResponse(bill);
     }
 
+    public BillResponseDto buyBook(UUID billId, UUID bookId) {
+        Bill bill = billRepository.findById(billId)
+                        .orElseThrow(() -> new BillServiceException("Bill with id " + billId + " not found"));
+        log.info("Bill has been found {}, start to buy book with id {}", bill, bookId);
+        BookForSaleResponseDto book = bookServiceClient.getBookForSale(bookId);
+        bill.setAmount(bill.getAmount().subtract(BigDecimal.valueOf(book.getCost())));
+        log.info("Bill amount after buy book {}", bill.getAmount());
+
+        AddBookRequestDto addBookRequestDto = new AddBookRequestDto(bill.getAccountId(), bookId);
+        log.info("Start to add book to account {}", addBookRequestDto);
+        accountServiceClient.addBookToAccount(addBookRequestDto);
+
+        return billMapper.toResponse(bill);
+    }
+
     public void deleteBill(UUID id) {
         log.info("Start to delete bill with ud {}", id);
         BillResponseDto billResponseDto = getBillById(id);
@@ -82,4 +103,5 @@ public class BillService {
         billRepository.deleteById(id);
         log.info("Delete bill with id {} successful", id);
     }
+
 }

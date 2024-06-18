@@ -1,5 +1,6 @@
 package com.example.book.controller;
 
+import com.example.book.dto.BookForSaleResponseDto;
 import com.example.book.dto.BookRequestDto;
 import com.example.book.dto.BookResponseDto;
 import com.example.book.service.BookService;
@@ -36,6 +37,11 @@ public class BookController {
     @PutMapping("/{id}")
     public BookResponseDto update(@PathVariable UUID id, @RequestBody BookRequestDto bookRequestDto) {
         return bookService.update(id, bookRequestDto);
+    }
+
+    @GetMapping("/sell/{id}")
+    public BookForSaleResponseDto getBookForSale(@PathVariable UUID id) {
+        return bookService.getBookForSale(id);
     }
 
     @DeleteMapping("/{id}")
