@@ -6,7 +6,7 @@
     <changeSet id="2" author="lesnik">
         <insert tableName="bill">
             <column name="id" value="00000000-0000-0000-0000-000000000001"/>
-            <column name="accountId" value="123e4567-e89b-12d3-a456-426614174000"/>
+            <column name="account_id" value="123e4567-e89b-12d3-a456-426614174000"/>
             <column name="amount" value="150.00"/>
         </insert>
     </changeSet>

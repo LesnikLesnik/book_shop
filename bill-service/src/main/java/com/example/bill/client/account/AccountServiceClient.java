@@ -20,7 +20,7 @@ public interface AccountServiceClient {
     @PutMapping("/api/accounts/bill")
     AccountResponseDto editBillOnAccount(@RequestBody EditBillRequestDto editBillRequestDto);
 
-    @PutMapping("/api/account/book")
+    @PutMapping("/api/accounts/book")
     AccountResponseDto addBookToAccount(@RequestBody AddBookRequestDto addBookRequestDto);
 }
 

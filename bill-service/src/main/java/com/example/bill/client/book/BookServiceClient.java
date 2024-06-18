@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface BookServiceClient {
 
 
-    @GetMapping("/sell/{id}")
+    @GetMapping("/api/books/sell/{id}")
     BookForSaleResponseDto getBookForSale(@PathVariable UUID id);
 }

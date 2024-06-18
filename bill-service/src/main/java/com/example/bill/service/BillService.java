@@ -87,7 +87,7 @@ public class BillService {
         log.info("Bill amount after buy book {}", bill.getAmount());
 
         AddBookRequestDto addBookRequestDto = new AddBookRequestDto(bill.getAccountId(), bookId);
-        log.info("Start to add book to account {}", addBookRequestDto);
+        log.info("Start to add book to account {}", addBookRequestDto.getAccountId());
         accountServiceClient.addBookToAccount(addBookRequestDto);
 
         return billMapper.toResponse(bill);

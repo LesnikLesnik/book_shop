@@ -86,6 +86,7 @@ public class AccountService {
         account.setBooks(books);
 
         Account savedAccount = accountRepository.save(account);
+        log.info("Account after adding the book {}", account);
         return accountMapper.toResponseDto(savedAccount);
     }
 

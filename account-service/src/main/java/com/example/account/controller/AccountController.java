@@ -45,7 +45,7 @@ public class AccountController {
         return accountService.addBillToAccount(addBillRequestDto);
     }
 
-    @PutMapping("/api/account/book")
+    @PutMapping("/book")
     AccountResponseDto addBookToAccount(@RequestBody AddBookRequestDto addBookRequestDto) {
         return accountService.addBookToAccount(addBookRequestDto);
     }
