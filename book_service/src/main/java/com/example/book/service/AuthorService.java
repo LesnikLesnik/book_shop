@@ -36,16 +36,14 @@ public class AuthorService {
     public UUID addAuthor(AuthorRequestDto authorRequestDto) {
         log.info("start to add author");
         Optional<Author> authorForCheck = authorRepository
-                .findFirstByFirstNameAndLastName(authorRequestDto.getFirstName(), authorRequestDto.getLastName());
+                .findFirstByFirstNameAndLastNameAndDateOfBirth(authorRequestDto.getFirstName(), authorRequestDto.getLastName(), authorRequestDto.getDateOfBirth());
 
         if (authorForCheck.isPresent()) {
             AuthorResponseDto authorResponseDto = authorMapper.toResponse(authorForCheck.get());
-            log.info("Найден автор с идентичными именем и фамилией {}, выполняется проверка по дате рождения", authorResponseDto);
-
-            if (authorResponseDto.getDateOfBirth().equals(authorRequestDto.getDateOfBirth())) {
-                throw new AuthorServiceException("Такой автор уже есть в базе");
-            }
+            log.info("Author with the same first name, last name, and date of birth already exists: {}", authorResponseDto);
+            throw new AuthorServiceException("Author with the same first name, last name, and date of birth already exists");
         }
+
         Author author = authorMapper.toAuthor(authorRequestDto);
         author.setId(UUID.randomUUID());
         log.info("Add author {} successful", author);

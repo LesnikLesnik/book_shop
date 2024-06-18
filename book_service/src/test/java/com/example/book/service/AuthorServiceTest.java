@@ -59,15 +59,18 @@ public class AuthorServiceTest {
 
     @Test
     void testAddAuthor_NewAuthor_ShouldReturnId() {
-        //When
-        when(authorRepository.findFirstByFirstNameAndLastName("John", "Doe")).thenReturn(Optional.empty());
+        // Given
+        when(authorRepository.findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth()))
+                .thenReturn(Optional.empty());
         when(authorMapper.toAuthor(authorRequestDto)).thenReturn(author);
         when(authorRepository.save(author)).thenReturn(author);
 
+        // When
         UUID result = authorService.addAuthor(authorRequestDto);
 
-        //Then
-        verify(authorRepository, times(1)).findFirstByFirstNameAndLastName("John", "Doe");
+        // Then
+        verify(authorRepository, times(1))
+                .findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth());
         verify(authorMapper, times(1)).toAuthor(authorRequestDto);
         verify(authorRepository, times(1)).save(author);
         assertEquals(author.getId(), result);
@@ -75,16 +78,17 @@ public class AuthorServiceTest {
 
     @Test
     void testAddAuthor_ExistingAuthorWithSameBirthDate_ShouldThrowException() {
-        //Given
+        // Given
         Author existingAuthor = author;
-        AuthorResponseDto existingAuthorResponse = new AuthorResponseDto(existingAuthor.getId(), existingAuthor.getFirstName() + " " + existingAuthor.getLastName(), existingAuthor.getDateOfBirth());
 
-        //When
-        when(authorRepository.findFirstByFirstNameAndLastName("John", "Doe")).thenReturn(Optional.of(existingAuthor));
-        when(authorMapper.toResponse(existingAuthor)).thenReturn(existingAuthorResponse);
+        // When
+        when(authorRepository.findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth()))
+                .thenReturn(Optional.of(existingAuthor));
 
-        //Then
-        assertThrows(AuthorServiceException.class, () -> authorService.addAuthor(authorRequestDto), "Такой автор уже есть в базе");
+        // Then
+        assertThrows(AuthorServiceException.class,
+                () -> authorService.addAuthor(authorRequestDto),
+                "Author with the same first name, last name, and date of birth already exists");
         verify(authorRepository, never()).save(any(Author.class));
     }
 
