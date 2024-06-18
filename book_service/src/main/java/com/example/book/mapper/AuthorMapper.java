@@ -18,4 +18,9 @@ public interface AuthorMapper {
 
     @Mapping(target = "id", ignore = true)
     void updateAuthorFromDto(AuthorRequestDto authorRequestDto, @MappingTarget Author author);
+
+    /**
+     * получение автора для связывания с сущностью Book
+     */
+    Author responseToAuthor(AuthorResponseDto authorResponseDto);
 }

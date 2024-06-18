@@ -13,7 +13,7 @@ public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     Book toBook(BookRequestDto bookRequestDto);
 
-    @Mapping(target = "authorName", ignore = true)
+    @Mapping(target = "authorResponseDto", ignore = true)
     BookResponseDto toResponse(Book book);
 
     @Mapping(target = "id", ignore = true)

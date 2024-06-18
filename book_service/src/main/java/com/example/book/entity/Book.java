@@ -1,9 +1,6 @@
 package com.example.book.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -25,13 +22,14 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "author_id")
-    private UUID authorId;
+    @ManyToOne
+    @JoinColumn(name = "author", nullable = false)
+    private Author author;
 
     @Column(name = "cost")
     private Integer cost;
 
-    @Column(name = "yearOfCreate")
+    @Column(name = "year_of_create")
     private Integer yearOfCreate;
 
     @Column(name = "pages")

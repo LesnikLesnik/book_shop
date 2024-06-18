@@ -5,6 +5,7 @@ import com.example.book.dto.BookRequestDto;
 import com.example.book.dto.BookResponseDto;
 import com.example.book.entity.Book;
 import com.example.book.exception.BookServiceException;
+import com.example.book.mapper.AuthorMapper;
 import com.example.book.mapper.BookMapper;
 import com.example.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,15 @@ public class BookService {
 
     private final AuthorService authorService;
 
+    private final AuthorMapper authorMapper;
+
     public UUID create(BookRequestDto bookRequestDto) {
         log.info("Start to create book");
         Book book = bookMapper.toBook(bookRequestDto);
         book.setId(UUID.randomUUID());
+        log.info("Start to find author with id {} for add to book", bookRequestDto.getAuthorId());
+        AuthorResponseDto author = authorService.getAuthor(bookRequestDto.getAuthorId());
+        book.setAuthor(authorMapper.responseToAuthor(author));
         log.info("Book to save {}", book);
         return bookRepository.save(book).getId();
     }
@@ -39,9 +45,7 @@ public class BookService {
                 .orElseThrow(() -> new BookServiceException("Книга с id" + id + " не найдена"));
         log.info("Find book successful {}", book);
         BookResponseDto bookResponseDto = bookMapper.toResponse(book);
-        AuthorResponseDto authorName = authorService.getAuthor(book.getAuthorId());
-        log.info("Find book`s author {}", authorName);
-        bookResponseDto.setAuthorName(authorName.getName());
+        bookResponseDto.setAuthorResponseDto(authorMapper.toResponse(book.getAuthor()));
         return bookResponseDto;
     }
 

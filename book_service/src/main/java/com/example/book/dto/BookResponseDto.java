@@ -13,7 +13,7 @@ public class BookResponseDto {
 
     private String title;
 
-    private String authorName;
+    private AuthorResponseDto authorResponseDto;
 
     private Integer cost;
 
