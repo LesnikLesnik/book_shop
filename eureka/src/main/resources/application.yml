@@ -6,3 +6,10 @@ spring:
   cloud:
     config:
       fail-fast: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false

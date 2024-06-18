@@ -7,13 +7,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper
+@Mapper(uses = AuthorMapper.class)
 public interface BookMapper {
 
     @Mapping(target = "id", ignore = true)
     Book toBook(BookRequestDto bookRequestDto);
 
-    @Mapping(target = "authorResponseDto", ignore = true)
+    @Mapping(target = "authorResponseDto", source = "book.author")
     BookResponseDto toResponse(Book book);
 
     @Mapping(target = "id", ignore = true)

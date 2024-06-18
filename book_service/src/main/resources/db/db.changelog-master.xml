@@ -5,5 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="db/changelog/1.0.1_create_table_author.xml"/>
+    <include file="db/changelog/1.0.2_create_table_book.xml"/>
+    <include file="db/changelog/1.0.3_add_new_column_to_book.xml"/>
+    <include file="db/changelog/1.0.4_edit_column_author.xml"/>
+    <include file="db/changelog/1.0.5_fix_column_book.xml"/>
 
 </databaseChangeLog>
