@@ -7,6 +7,7 @@ import com.example.book.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,6 +27,10 @@ public class AuthorController {
     @GetMapping("/{id}")
     public AuthorResponseDto getAuthor(@PathVariable UUID id) {
         return authorService.getAuthor(id);
+    }
+
+    public Page<AuthorResponseDto> getAllAuthors(@PageableDefault(size = 15) Pageable pageable) {
+        return authorService.getAllAuthors(pageable);
     }
 
     @GetMapping("/author")

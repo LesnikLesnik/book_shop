@@ -56,6 +56,13 @@ public class AuthorService {
                 .orElseThrow(() -> new AuthorServiceException("Автор с id " + id + " не найден"));
     }
 
+
+    public Page<AuthorResponseDto> getAllAuthors(Pageable pageable) {
+        Page<Author> authors = authorRepository.findAll(pageable);
+        log.info("Find all authors successful");
+        return authors.map(authorMapper::toResponse);
+    }
+
     public Page<AuthorResponseDto> getAuthorByName(AuthorRequestDto authorRequestDto , Pageable pageable) {
         String firstName = authorRequestDto.getFirstName();
         String lastName = authorRequestDto.getLastName();

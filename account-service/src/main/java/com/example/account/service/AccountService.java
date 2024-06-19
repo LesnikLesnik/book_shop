@@ -45,17 +45,18 @@ public class AccountService {
 
     public Page<AccountResponseDto> getAllAccounts(Pageable pageable) {
         Page<Account> accounts = accountRepository.findAll(pageable);
+        log.info("Find all accounts successful");
         return accounts.map(accountMapper::toResponseDto);
     }
 
     public AccountResponseDto updateAccount(UUID id, AccountRequestDto accountRequestDto) {
         Account accountToUpdate = accountRepository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException("Аккаунт с id: " + id + " не найден"));
-        log.info("Find account with id {} completed", id);
-        accountToUpdate.setId(id);
         log.info("Account before update {}", accountToUpdate);
         accountMapper.updateAccountFromDto(accountRequestDto, accountToUpdate);
         Account updatedAccount = accountRepository.save(accountToUpdate);
+        updatedAccount.setId(id);
+        updatedAccount.setCreationDate(accountToUpdate.getCreationDate());
         log.info("Account after update {}", updatedAccount);
         return accountMapper.toResponseDto(updatedAccount);
     }
