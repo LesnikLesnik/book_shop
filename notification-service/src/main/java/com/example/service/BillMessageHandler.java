@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.config.RabbitMQConfig;
 import com.example.dto.BillResponseDtoToRabbit;
+import com.example.dto.BookResponseDtoToRabbit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,29 @@ public class BillMessageHandler {
         mailMessage.setSubject("Deposit");
         mailMessage.setText("Make deposit sum: " + billResponseDtoToRabbit.getDeposit() +
                 "\nBill id: " + billResponseDtoToRabbit.getId());
+
+        try {
+            javaMailSender.send(mailMessage);
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
+        }
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_BOOK)
+    public void receiveBook(Message message) throws JsonProcessingException {
+        log.info("Message to receive {} ", message);
+        byte[] body = message.getBody();
+        String jsonBody = new String(body);
+        ObjectMapper objectMapper = new ObjectMapper();
+        BookResponseDtoToRabbit bookResponseDtoToRabbit = objectMapper.readValue(jsonBody, BookResponseDtoToRabbit.class);
+        log.info("BookResponseDtoToRabbit {}", bookResponseDtoToRabbit);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(bookResponseDtoToRabbit.getEmail());
+        mailMessage.setFrom("kazulina.nast@gmail.com");
+
+        mailMessage.setSubject("Add book");
+        mailMessage.setText("The book with id " + bookResponseDtoToRabbit.getBookId() + " has been added to the account " + bookResponseDtoToRabbit.getAccountId());
 
         try {
             javaMailSender.send(mailMessage);

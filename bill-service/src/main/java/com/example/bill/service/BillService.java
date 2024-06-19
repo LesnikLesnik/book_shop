@@ -8,6 +8,7 @@ import com.example.bill.client.book.BookForSaleResponseDto;
 import com.example.bill.client.book.BookServiceClient;
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.dto.BillResponseDtoToRabbit;
+import com.example.bill.dto.BookResponseDtoToRabbit;
 import com.example.bill.entity.Bill;
 import com.example.bill.exception.AccountException;
 import com.example.bill.exception.BillServiceException;
@@ -36,12 +37,16 @@ public class BillService {
 
     private final BookServiceClient bookServiceClient;
 
+    //RabbitMQ
     private final RabbitTemplate rabbitTemplate;
 
     private static final String TOPIC_EXCHANGE_DEPOSIT = "js.deposit.notify.exchange";
 
     private static final String ROUTING_KEY_DEPOSIT = "js.key.deposit";
 
+    private static final String TOPIC_EXCHANGE_BOOK = "js.book.notify.exchange";
+
+    private static final String ROUTING_KEY_BOOK = "js.key.book";
     public BillResponseDto createBill(UUID accountId, BigDecimal amount) {
         log.info("start find, {}, {}", accountId, amount);
         AccountResponseDto accountById = getAccountById(accountId);
@@ -86,10 +91,11 @@ public class BillService {
         billRepository.save(bill);
         log.info("Bill after update {}", bill);
         BillResponseDto billResponseDto = billMapper.toResponse(bill);
-        return sendMessageToRabbit(deposit, billResponseDto);
+        return sendDepositMessageToRabbit(deposit, billResponseDto);
     }
 
-    private BillResponseDto sendMessageToRabbit(BigDecimal deposit, BillResponseDto billResponseDto) {
+    private BillResponseDto sendDepositMessageToRabbit(BigDecimal deposit, BillResponseDto billResponseDto) {
+        log.info("Sending message to email {}", billResponseDto.getEmail());
         BillResponseDtoToRabbit billResponseDtoToRabbit = new BillResponseDtoToRabbit(billResponseDto.getId(), billResponseDto.getEmail(), deposit);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -114,7 +120,22 @@ public class BillService {
         log.info("Start to add book to account {}", addBookRequestDto.getAccountId());
         accountServiceClient.addBookToAccount(addBookRequestDto);
 
+        sendBookMessageToRabbit(bill.getEmail(), addBookRequestDto);
+
         return billMapper.toResponse(bill);
+    }
+
+    private void sendBookMessageToRabbit(String email, AddBookRequestDto addBookRequestDto) {
+        log.info("Sending message to email {}", email);
+        BookResponseDtoToRabbit bookResponseDtoToRabbit = new BookResponseDtoToRabbit(addBookRequestDto.getAccountId(), email, addBookRequestDto.getBookId());
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            rabbitTemplate.convertAndSend(TOPIC_EXCHANGE_BOOK, ROUTING_KEY_BOOK,
+                    objectMapper.writeValueAsString(bookResponseDtoToRabbit));
+        } catch (
+                JsonProcessingException e) {
+            throw new BillServiceException("Can`t send message to RabbitMq");
+        }
     }
 
     public void deleteBill(UUID id) {

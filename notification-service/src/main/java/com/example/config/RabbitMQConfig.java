@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    //Deposit
     public static final String QUEUE_DEPOSIT = "js.deposit.notify";
 
     private static final String TOPIC_EXCHANGE_DEPOSIT = "js.deposit.notify.exchange";
@@ -32,4 +33,33 @@ public class RabbitMQConfig {
                 .to(depositExchange())
                 .with(ROUTING_KEY_DEPOSIT);
     }
+
+    //Buy book
+    public static final String QUEUE_BOOK = "js.book.notify";
+
+    private static final String TOPIC_EXCHANGE_BOOK = "js.book.notify.exchange";
+
+    private static final String ROUTING_KEY_BOOK = "js.key.book";
+
+    @Bean
+    public TopicExchange bookExchange() {
+        return new TopicExchange(TOPIC_EXCHANGE_BOOK);
+    }
+
+    @Bean
+    public Queue queueBook() {
+        return new Queue(QUEUE_BOOK);
+    }
+
+    @Bean
+    public Binding bookBinding() {
+        return BindingBuilder
+                .bind(queueBook())
+                .to(bookExchange())
+                .with(ROUTING_KEY_BOOK);
+    }
+
+
 }
+
+
