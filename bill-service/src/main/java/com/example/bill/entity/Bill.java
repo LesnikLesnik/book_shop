@@ -26,6 +26,9 @@ public class Bill {
     @Column(name = "accountId")
     private UUID accountId;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "amount")
     private BigDecimal amount;
 }

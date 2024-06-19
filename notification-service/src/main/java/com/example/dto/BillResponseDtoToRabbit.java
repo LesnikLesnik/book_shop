@@ -1,4 +1,4 @@
-package com.example.bill.dto;
+package com.example.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,13 +8,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class BillResponseDto {
+public class BillResponseDtoToRabbit {
 
     private UUID id;
 
-    private UUID accountId;
-
     private String email;
 
-    private BigDecimal amount;
+    private BigDecimal deposit;
 }

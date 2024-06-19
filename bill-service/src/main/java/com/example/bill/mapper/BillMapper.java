@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface BillMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "email", ignore = true)
     Bill toBill(BillRequestDto billRequestDto);
 
     BillResponseDto toResponse(Bill bill);

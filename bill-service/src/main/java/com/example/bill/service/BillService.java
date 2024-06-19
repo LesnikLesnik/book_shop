@@ -7,13 +7,17 @@ import com.example.bill.client.account.dto.EditBillRequestDto;
 import com.example.bill.client.book.BookForSaleResponseDto;
 import com.example.bill.client.book.BookServiceClient;
 import com.example.bill.dto.BillResponseDto;
+import com.example.bill.dto.BillResponseDtoToRabbit;
 import com.example.bill.entity.Bill;
 import com.example.bill.exception.AccountException;
 import com.example.bill.exception.BillServiceException;
 import com.example.bill.mapper.BillMapper;
 import com.example.bill.repository.BillRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -32,6 +36,12 @@ public class BillService {
 
     private final BookServiceClient bookServiceClient;
 
+    private final RabbitTemplate rabbitTemplate;
+
+    private static final String TOPIC_EXCHANGE_DEPOSIT = "js.deposit.notify.exchange";
+
+    private static final String ROUTING_KEY_DEPOSIT = "js.key.deposit";
+
     public BillResponseDto createBill(UUID accountId, BigDecimal amount) {
         log.info("start find, {}, {}", accountId, amount);
         AccountResponseDto accountById = getAccountById(accountId);
@@ -39,7 +49,7 @@ public class BillService {
         if (accountById.getBillId() != null) {
             throw new AccountException("The account already has a bill with id " + accountById.getBillId());
         }
-        Bill bill = new Bill(UUID.randomUUID(), accountId, amount);
+        Bill bill = new Bill(UUID.randomUUID(), accountId, accountById.getEmail(), amount);
         billRepository.save(bill);
         log.info("Bill with id {} has been created", bill.getId());
 
@@ -75,12 +85,26 @@ public class BillService {
         bill.setAmount(bill.getAmount().add(deposit));
         billRepository.save(bill);
         log.info("Bill after update {}", bill);
-        return billMapper.toResponse(bill);
+        BillResponseDto billResponseDto = billMapper.toResponse(bill);
+        return sendMessageToRabbit(deposit, billResponseDto);
+    }
+
+    private BillResponseDto sendMessageToRabbit(BigDecimal deposit, BillResponseDto billResponseDto) {
+        BillResponseDtoToRabbit billResponseDtoToRabbit = new BillResponseDtoToRabbit(billResponseDto.getId(), billResponseDto.getEmail(), deposit);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            rabbitTemplate.convertAndSend(TOPIC_EXCHANGE_DEPOSIT, ROUTING_KEY_DEPOSIT,
+                    objectMapper.writeValueAsString(billResponseDtoToRabbit));
+        } catch (
+                JsonProcessingException e) {
+            throw new BillServiceException("Can`t send message to RabbitMq");
+        }
+        return billResponseDto;
     }
 
     public BillResponseDto buyBook(UUID billId, UUID bookId) {
         Bill bill = billRepository.findById(billId)
-                        .orElseThrow(() -> new BillServiceException("Bill with id " + billId + " not found"));
+                .orElseThrow(() -> new BillServiceException("Bill with id " + billId + " not found"));
         log.info("Bill has been found {}, start to buy book with id {}", bill, bookId);
         BookForSaleResponseDto book = bookServiceClient.getBookForSale(bookId);
         bill.setAmount(bill.getAmount().subtract(BigDecimal.valueOf(book.getCost())));

@@ -11,8 +11,16 @@ services:
       POSTGRES_DB: account_service_db
     volumes:
       - pgdata:/var/lib/postgresql/data
-#    networks:
-#      - config-network
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    hostname: "rabbitmq"
+    container_name: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 volumes:
   pgdata:

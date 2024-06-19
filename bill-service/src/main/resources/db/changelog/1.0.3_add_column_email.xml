@@ -4,8 +4,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="db/changelog/1.0.1_create_table_bill.xml"/>
-    <include file="db/changelog/1.0.2_add_test_entity.xml"/>
-    <include file="db/changelog/1.0.3_add_column_email.xml"/>
-
+    <changeSet id="3" author="lesnik">
+        <addColumn tableName="bill">
+            <column name="email" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

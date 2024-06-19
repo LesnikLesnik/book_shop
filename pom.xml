@@ -10,6 +10,7 @@
         <module>bill-service</module>
         <module>eureka</module>
         <module>book_service</module>
+        <module>notification-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -40,13 +41,5 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
 
 </project>
