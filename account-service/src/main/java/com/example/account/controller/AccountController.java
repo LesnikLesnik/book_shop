@@ -44,19 +44,21 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Обновление аккаунта за исключение id и даты создания")
+    @Operation(summary = "Обновление аккаунта", description = "Не обновляются id и дата создания")
     public AccountResponseDto updateAccount(@PathVariable UUID id, @RequestBody AccountRequestDto accountRequestDto){
         return accountService.updateAccount(id, accountRequestDto);
     }
 
     @PutMapping("/bill")
-    @Operation(summary = "Запрос от bill-service для добавления счета в соответствующее поле в аккаунте")
+    @Operation(summary = "Добавление счета в аккаунт",
+            description = "Запрос от bill-service для добавления счета в соответствующее поле в аккаунте")
     public AccountResponseDto editBillOnAccount(@RequestBody AddBillRequestDto addBillRequestDto){
         return accountService.addBillToAccount(addBillRequestDto);
     }
 
     @PutMapping("/book")
-    @Operation(summary = "Запрос от bill-service для добавления книги в соответствующее поле в аккаунте после ее оплаты")
+    @Operation(summary = "Добавление книги в аккаунт",
+            description = "Запрос от bill-service для добавления книги в соответствующее поле в аккаунте после ее оплаты")
     AccountResponseDto addBookToAccount(@RequestBody AddBookRequestDto addBookRequestDto) {
         return accountService.addBookToAccount(addBookRequestDto);
     }
