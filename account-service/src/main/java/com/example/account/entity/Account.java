@@ -24,8 +24,8 @@ public class Account {
     @EqualsAndHashCode.Include
     private UUID id;
 
-    @Column(name="name")
-    private String name;
+    @Column(name="login")
+    private String login; //TODO заменить колонку
 
     @Column(name="email")
     private String email;
@@ -38,6 +38,8 @@ public class Account {
 
     @Column(name="bill_id")
     private UUID billId;
+
+    private String role; //TODO: внести изменения добавить колонку
 
     @Column(name="books")
     private List<UUID> books;
