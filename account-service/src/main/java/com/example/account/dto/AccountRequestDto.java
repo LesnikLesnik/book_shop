@@ -9,11 +9,10 @@ import java.util.Date;
 @Setter
 public class AccountRequestDto {
 
-    private String name;
+    private String login;
 
     private String email;
 
     private String password;
 
-    private Date creationDate;
 }

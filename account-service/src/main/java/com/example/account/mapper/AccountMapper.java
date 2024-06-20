@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface AccountMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", ignore = true)
     @Mapping(target = "books", expression = "java(null)")
     @Mapping(target = "billId", expression = "java(null)")
     @Mapping(target = "creationDate", expression = "java(new java.util.Date())")

@@ -25,12 +25,6 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("/")
-    @Operation(summary = "Создание аккаунта")
-    public UUID createAccount(@RequestBody AccountRequestDto accountRequestDTO){
-        return accountService.createAccount(accountRequestDTO);
-    }
-
     @GetMapping("/{id}")
     @Operation(summary = "Получение аккаунта по id")
     public AccountResponseDto getAccount(@PathVariable UUID id){

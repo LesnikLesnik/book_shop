@@ -13,11 +13,9 @@ public class AccountResponseDto {
 
     private UUID id;
 
-    private String name;
+    private String login;
 
     private String email;
-
-    private String password;
 
     private Date creationDate;
 
