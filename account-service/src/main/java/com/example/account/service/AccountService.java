@@ -29,13 +29,6 @@ public class AccountService {
     private final AccountMapper accountMapper;
 
 
-    public UUID createAccount(AccountRequestDto accountRequestDTO) {
-        Account account = accountMapper.toAccount(accountRequestDTO);
-        account.setId(UUID.randomUUID());
-        log.info("Create account with id {} completed: {}", account.getId(), account);
-        return accountRepository.save(account).getId();
-    }
-
     public AccountResponseDto getAccountById(UUID id) {
         Optional<Account> accountById = accountRepository.findById(id);
         log.info("Find account with id {} completed", id);

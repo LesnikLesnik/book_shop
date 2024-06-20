@@ -10,8 +10,3 @@ spring:
           uri: https://github.com/LesnikLesnik/book_shop_config_repo
           default-label: main
           search-paths: "{application}"
-  profiles:
-    active: native
-  security:
-    user:
-      password: admin

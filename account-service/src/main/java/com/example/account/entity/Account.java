@@ -25,7 +25,7 @@ public class Account {
     private UUID id;
 
     @Column(name="login")
-    private String login; //TODO заменить колонку
+    private String login;
 
     @Column(name="email")
     private String email;
@@ -39,7 +39,7 @@ public class Account {
     @Column(name="bill_id")
     private UUID billId;
 
-    private String role; //TODO: внести изменения добавить колонку
+    private String role;
 
     @Column(name="books")
     private List<UUID> books;

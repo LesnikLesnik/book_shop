@@ -1,5 +1,5 @@
-#version: '3'
-#services:
+version: '3'
+services:
 #  config-service:
 #    container_name: config-service
 #    build: config-service
@@ -32,21 +32,21 @@
 #      - registry
 #    networks:
 #      - book-shop-network
-#
-#  database:
-#    image: 'postgres:16.2-alpine'
-#    container_name: 'book_shop_db'
-#    ports:
-#      - 5432:5432
+
+  database:
+    image: 'postgres:16.2-alpine'
+    container_name: 'book_shop_db'
+    ports:
+      - 5432:5432
 #    networks:
 #      - book-shop-network
-#    environment:
-#      POSTGRES_USER: qwerty
-#      POSTGRES_PASSWORD: qwerty
-#      POSTGRES_DB: account_service_db
-#    volumes:
-#      - pgdata:/var/lib/postgresql/data
-#
+    environment:
+      POSTGRES_USER: qwerty
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: account_service_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
 #  account-service:
 #    container_name: account-service
 #    build: account-service
@@ -102,20 +102,20 @@
 #      - rabbitmq
 #    networks:
 #      - book-shop-network
-#
-#  rabbitmq:
-#    image: rabbitmq:3.12-management
-#    hostname: "rabbitmq"
-#    container_name: "rabbitmq"
-#    labels:
-#      NAME: "rabbitmq"
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    hostname: "rabbitmq"
+    container_name: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 #networks:
 #  book-shop-network:
 #    driver: bridge
-#
-#volumes:
-#  pgdata:
+
+volumes:
+  pgdata:

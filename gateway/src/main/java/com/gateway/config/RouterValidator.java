@@ -10,10 +10,20 @@ import java.util.function.Predicate;
 public class RouterValidator {
 
     public static final List<String> openEndpoints = List.of(
-        "/auth/register"
+            "/api/auth/register",
+            "/api/auth/login",
+            "/api/books",  // Доступ к списку всех книг
+            "/api/books/{id}", // Доступ к книге по id
+            "/api/authors", // Доступ к списку всех авторов
+            "/api/authors/{id}", // Доступ к автору по id
+            "/api/authors/{id}/books" // Доступ к книгам автора по id
     );
 
     public Predicate<ServerHttpRequest> isSecured =
             request -> openEndpoints.stream()
-                    .noneMatch(uri -> request.getURI().getPath().contains(uri));
+                    .noneMatch(uri -> request.getURI().getPath().matches(convertToRegex(uri)));
+
+    private String convertToRegex(String path) {
+        return path.replace("{id}", "[^/]+"); // Замена {id} на regex для любого текста, кроме "/"
+    }
 }

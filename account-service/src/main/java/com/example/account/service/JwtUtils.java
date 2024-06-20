@@ -3,14 +3,14 @@ package com.example.account.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class JwtUtils {
@@ -19,45 +19,41 @@ public class JwtUtils {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private String expiration;
-
+    private long expiration; // Время жизни токена в миллисекундах
 
     private Key key;
 
-    @Autowired
     public JwtUtils() {
+        // Конструктор по умолчанию
+    }
+
+    @PostConstruct
+    public void init() {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
-    public Date getExpirationDate(String token) {
-        return getClaims(token).getExpiration();
+    public boolean isExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
     }
-
 
     public String generate(String userId, String role, String tokenType) {
-        Map<String, String> claims = Map.of("id", userId, "role", role);
-        long expMillis = "ACCESS".equalsIgnoreCase(tokenType)
-                ? Long.parseLong(expiration) * 1000
-                : Long.parseLong(expiration) * 1000 * 5;
+        Map<String, Object> claims = Map.of("id", userId, "role", role);
+
+        long expMillis = tokenType.equalsIgnoreCase("ACCESS") ? expiration : expiration * 5;
 
         final Date now = new Date();
-        final Date exp = new Date(now.getTime() * expMillis);
+        final Date exp = new Date(now.getTime() + expMillis);
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(claims.get("id"))
+                .setSubject(userId)
                 .setIssuedAt(now)
                 .setExpiration(exp)
                 .signWith(key)
                 .compact();
-    }
-
-
-    private boolean isExpired(String token) {
-        return getExpirationDate(token).before(new Date());
     }
 }

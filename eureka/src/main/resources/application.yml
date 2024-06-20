@@ -6,8 +6,6 @@ spring:
   cloud:
     config:
       fail-fast: true
-      username: user
-      password: admin
 
 eureka:
   instance:
@@ -15,6 +13,3 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-
-server:
-  port: 8761

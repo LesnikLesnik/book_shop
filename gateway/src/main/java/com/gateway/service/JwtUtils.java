@@ -3,13 +3,11 @@ package com.gateway.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Map;
 
 @Service
 public class JwtUtils {
@@ -18,18 +16,23 @@ public class JwtUtils {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private String expiration;
-
+    private long expiration; // Время жизни токена в миллисекундах
 
     private Key key;
 
-    @Autowired
     public JwtUtils() {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        // Инициализация ключа перенесена в метод, чтобы secret был доступен
+    }
+
+    private void initKey() {
+        if (this.key == null) {
+            this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        }
     }
 
     public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
+        initKey();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
     public boolean isExpired(String token) {

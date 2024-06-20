@@ -6,8 +6,6 @@ spring:
   cloud:
     config:
       fail-fast: true
-      username: user
-      password: admin
 
 jwt:
   secret: lEsNiKlEsNiK20244202kInSeLkInSeL
