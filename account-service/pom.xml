@@ -121,6 +121,10 @@
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <mainClass>com/example/account/AccountApplication.java</mainClass>
+                <layout>JAR</layout>
+            </configuration>
         </plugin>
     </plugins>
 </build>

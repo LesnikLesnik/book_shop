@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book_shop
+spec:
+  selector:
+    matchLabels:
+      app: book_shop
+  template:
+    metadata:
+      labels:
+        app: book_shop
+    spec:
+      containers:
+        - name: k8s-web-hello
+          image: lesniklesnik/book-shop-account-service
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 8081

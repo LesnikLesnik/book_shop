@@ -71,6 +71,14 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <mainClass>com/example/NotificationApplication.java</mainClass>
+                        <layout>JAR</layout>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>

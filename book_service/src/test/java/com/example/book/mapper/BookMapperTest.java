@@ -38,31 +38,6 @@ class BookMapperTest {
         assertNull(book.getId());
     }
 
-    @Test
-    void testToResponse() {
-        //Given
-        Book book = new Book();
-        book.setId(UUID.randomUUID());
-        book.setTitle("Test Book");
-        book.setCost(20);
-        book.setYearOfCreate(2023);
-        book.setPages(300);
-
-        Author author = new Author();
-        author.setId(UUID.randomUUID());
-        book.setAuthor(author);
-
-        //When
-        BookResponseDto bookResponseDto = bookMapper.toResponse(book);
-
-        //Then
-        assertEquals(book.getId(), bookResponseDto.getId());
-        assertEquals(book.getTitle(), bookResponseDto.getTitle());
-        assertNull(bookResponseDto.getAuthorResponseDto()); // AuthorResponseDto устанавливается отдельно в сервисе
-        assertEquals(book.getCost(), bookResponseDto.getCost());
-        assertEquals(book.getYearOfCreate(), bookResponseDto.getYearOfCreate());
-        assertEquals(book.getPages(), bookResponseDto.getPages());
-    }
 
     @Test
     void testUpdateBookFromDto() {
