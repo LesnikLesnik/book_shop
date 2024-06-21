@@ -20,9 +20,6 @@ public class JwtUtils {
 
     private Key key;
 
-    public JwtUtils() {
-        // Инициализация ключа перенесена в метод, чтобы secret был доступен
-    }
 
     private void initKey() {
         if (this.key == null) {

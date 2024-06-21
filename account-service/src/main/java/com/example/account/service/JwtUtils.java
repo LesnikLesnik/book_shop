@@ -23,10 +23,6 @@ public class JwtUtils {
 
     private Key key;
 
-    public JwtUtils() {
-        // Конструктор по умолчанию
-    }
-
     @PostConstruct
     public void init() {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());

@@ -35,13 +35,10 @@ public class CustomAuthenticationFilter implements GatewayFilter {
             if (authMissing(request)) {
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
             }
-
             final String token = getAuthHeader(request);
-
             if (jwtUtils.isExpired(token)) {
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
             }
-
             // Добавляем заголовки с информацией из токена для последующих микросервисов
             enrichRequestWithHeaders(exchange, token);
         }

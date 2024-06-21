@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: account-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      fail-fast: true
+
+jwt:
+  secret: lEsNiKlEsNiK20244202kInSeLkInSeL
+  expiration: 86400
