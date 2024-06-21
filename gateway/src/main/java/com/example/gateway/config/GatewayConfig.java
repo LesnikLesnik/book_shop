@@ -1,4 +1,4 @@
-package com.gateway.config;
+package com.example.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteLocator;

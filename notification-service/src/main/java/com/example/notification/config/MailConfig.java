@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.notification.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

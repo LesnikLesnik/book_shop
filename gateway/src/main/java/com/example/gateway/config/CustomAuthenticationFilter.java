@@ -1,6 +1,6 @@
-package com.gateway.config;
+package com.example.gateway.config;
 
-import com.gateway.service.JwtUtils;
+import com.example.gateway.service.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

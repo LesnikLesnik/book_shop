@@ -1,4 +1,4 @@
-package com.gateway.config;
+package com.example.gateway.config;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Service;

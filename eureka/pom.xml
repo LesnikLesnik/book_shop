@@ -37,7 +37,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.eureka.EurekaServerApplication.java</mainClass>
+                    <mainClass>com.example.eureka.EurekaServerApplication.java</mainClass>
                     <layout>JAR</layout>
                 </configuration>
             </plugin>
@@ -50,7 +50,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>src.main.java.com.eureka.EurekaServerApplication.java</mainClass>
+                            <mainClass>src.main.java.com.example.eureka.EurekaServerApplication.java</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

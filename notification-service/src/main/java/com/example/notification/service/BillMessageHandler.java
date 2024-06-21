@@ -1,8 +1,8 @@
-package com.example.service;
+package com.example.notification.service;
 
-import com.example.config.RabbitMQConfig;
-import com.example.dto.BillResponseDtoToRabbit;
-import com.example.dto.BookResponseDtoToRabbit;
+import com.example.notification.dto.BillResponseDtoToRabbit;
+import com.example.notification.dto.BookResponseDtoToRabbit;
+import com.example.notification.config.RabbitMQConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
