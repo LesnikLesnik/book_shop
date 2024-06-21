@@ -1,7 +1,6 @@
 package com.example.book.mapper;
 
 import com.example.book.dto.BookRequestDto;
-import com.example.book.dto.BookResponseDto;
 import com.example.book.entity.Author;
 import com.example.book.entity.Book;
 import org.junit.jupiter.api.Test;
