@@ -57,11 +57,11 @@ public class AuthService {
     public AuthResponseDto login(LoginRequestDto requestDto) {
         // Поиск пользователя по email
         Account account = accountRepository.findByEmail(requestDto.getEmail())
-                .orElseThrow(() -> new AccountNotFoundException("Неверный email или пароль"));
+                .orElseThrow(() -> new AccountNotFoundException("Не найден пользователь с email " + requestDto.getEmail()));
 
         // Проверка пароля
         if (!BCrypt.checkpw(requestDto.getPassword(), account.getPassword())) {
-            throw new IllegalStateException("Неверный email или пароль");
+            throw new IllegalStateException("Неверный пароль");
         }
 
         // Преобразование сущности в DTO
