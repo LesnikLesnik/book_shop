@@ -113,7 +113,11 @@ public class BillService {
                 .orElseThrow(() -> new BillServiceException("Bill with id " + billId + " not found"));
         log.info("Bill has been found {}, start to buy book with id {}", bill, bookId);
         BookForSaleResponseDto book = bookServiceClient.getBookForSale(bookId);
+        if (bill.getAmount().compareTo(BigDecimal.valueOf(book.getCost())) < 0) {
+            throw new BillServiceException("There is not enough money in the bill to buy a book");
+        }
         bill.setAmount(bill.getAmount().subtract(BigDecimal.valueOf(book.getCost())));
+        billRepository.save(bill);
         log.info("Bill amount after buy book {}", bill.getAmount());
 
         AddBookRequestDto addBookRequestDto = new AddBookRequestDto(bill.getAccountId(), bookId);
