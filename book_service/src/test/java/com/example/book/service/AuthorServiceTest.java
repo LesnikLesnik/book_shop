@@ -59,16 +59,16 @@ public class AuthorServiceTest {
 
     @Test
     void testAddAuthor_NewAuthor_ShouldReturnId() {
-        // Given
+        //Given
         when(authorRepository.findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth()))
                 .thenReturn(Optional.empty());
         when(authorMapper.toAuthor(authorRequestDto)).thenReturn(author);
         when(authorRepository.save(author)).thenReturn(author);
 
-        // When
+        //When
         UUID result = authorService.addAuthor(authorRequestDto);
 
-        // Then
+        //Then
         verify(authorRepository, times(1))
                 .findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth());
         verify(authorMapper, times(1)).toAuthor(authorRequestDto);
@@ -78,14 +78,14 @@ public class AuthorServiceTest {
 
     @Test
     void testAddAuthor_ExistingAuthorWithSameBirthDate_ShouldThrowException() {
-        // Given
+        //Given
         Author existingAuthor = author;
 
-        // When
+        //When
         when(authorRepository.findFirstByFirstNameAndLastNameAndDateOfBirth("John", "Doe", authorRequestDto.getDateOfBirth()))
                 .thenReturn(Optional.of(existingAuthor));
 
-        // Then
+        //Then
         assertThrows(AuthorServiceException.class,
                 () -> authorService.addAuthor(authorRequestDto),
                 "Author with the same first name, last name, and date of birth already exists");
