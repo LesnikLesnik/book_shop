@@ -86,7 +86,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com/gateway/GatewayApplication.java</mainClass>
+                    <mainClass>com.example.gateway.GatewayApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
             </plugin>

@@ -11,5 +11,6 @@ spring:
           uri: https://github.com/LesnikLesnik/book_shop_config_repo
           default-label: main
           search-paths: "{application}"
-  encryption:
-    key: lesniklesnik
+
+encrypt:
+  key: lesniklesnik

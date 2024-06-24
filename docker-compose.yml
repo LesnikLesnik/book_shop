@@ -1,45 +1,48 @@
 version: '3'
 services:
-#  config-service:
-#    container_name: config-service
-#    build: config-service
-#    ports:
-#      - 8888:8888
-#    networks:
-#      - book-shop-network
-#
-#  registry:
-#    container_name: registry
-#    build: eureka
-#    restart: always
-#    ports:
-#      - 8761:8761
-#    depends_on:
-#      - config-service
-#    networks:
-#      - book-shop-network
-#  #    environment:
-#  #      - SPRING_CONFIG_URI=http://config-service:8888
-#
-#  gateway:
-#    container_name: gateway
-#    build: gateway
-#    restart: always
-#    ports:
-#      - 8989:8989
-#    depends_on:
-#      - config-service
-#      - registry
-#    networks:
-#      - book-shop-network
+  config-service:
+    container_name: config-service
+    build: config-service
+    ports:
+      - 8888:8888
+    networks:
+      - book-shop-network
+    environment:
+      - SPRING_PROFILES_ACTIVE
+
+  registry:
+    container_name: registry
+    build: eureka
+    restart: always
+    ports:
+      - 8761:8761
+    depends_on:
+      - config-service
+    networks:
+      - book-shop-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  gateway:
+    container_name: gateway
+    build: gateway
+    restart: always
+    ports:
+      - 8989:8989
+    depends_on:
+      - config-service
+    networks:
+      - book-shop-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
 
   database:
     image: 'postgres:16.2-alpine'
     container_name: 'book_shop_db'
     ports:
       - 5432:5432
-#    networks:
-#      - book-shop-network
+    networks:
+      - book-shop-network
     environment:
       POSTGRES_USER: qwerty
       POSTGRES_PASSWORD: qwerty
@@ -47,75 +50,81 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-#  account-service:
-#    container_name: account-service
-#    build: account-service
-#    restart: on-failure
-#    ports:
-#      - 8081:8081
-#    depends_on:
-#      - config-service
-#      - registry
-#      - database
-#    environment:
-#      - ACCOUNT_SERVICE_DATABASE_HOST=database
-#    networks:
-#      - book-shop-network
-#
-#  bill-service:
-#    container_name: bill-service
-#    build: bill-service
-#    restart: on-failure
-#    ports:
-#      - 8082:8082
-#    depends_on:
-#      - config-service
-#      - registry
-#      - database
-#    environment:
-#      - BILL_SERVICE_DATABASE_HOST=database
-#    networks:
-#      - book-shop-network
-#
-#  book-service:
-#    container_name: book-service
-#    build: book_service
-#    restart: on-failure
-#    ports:
-#      - 8083:8083
-#    depends_on:
-#      - config-service
-#      - registry
-#      - database
-#    environment:
-#      - BOOK_SERVICE_DATABASE_HOST=database
-#    networks:
-#      - book-shop-network
-#
-#  notification-service:
-#    container_name: notification-service
-#    build: notification-service
-#    restart: on-failure
-#    depends_on:
-#      - config-service
-#      - registry
-#      - rabbitmq
-#    networks:
-#      - book-shop-network
-
-  rabbitmq:
-    image: rabbitmq:3.12-management
-    hostname: "rabbitmq"
-    container_name: "rabbitmq"
-    labels:
-      NAME: "rabbitmq"
+  account-service:
+    container_name: account-service
+    build: account-service
+    restart: on-failure
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 8081:8081
+    depends_on:
+      - config-service
+      - database
+    environment:
+      - ACCOUNT_SERVICE_DATABASE_HOST=database
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - book-shop-network
 
-#networks:
-#  book-shop-network:
-#    driver: bridge
+  bill-service:
+    container_name: bill-service
+    build: bill-service
+    restart: on-failure
+    ports:
+      - 8082:8082
+    depends_on:
+      - config-service
+      - database
+    environment:
+      - BILL_SERVICE_DATABASE_HOST=database
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - book-shop-network
+
+  book-service:
+    container_name: book-service
+    build: book_service
+    restart: on-failure
+    ports:
+      - 8083:8083
+    depends_on:
+      - config-service
+      - database
+    environment:
+      - BOOK_SERVICE_DATABASE_HOST=database
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - book-shop-network
+
+  notification-service:
+    container_name: notification-service
+    build: notification-service
+    restart: on-failure
+    ports:
+      - 9999:9999
+    depends_on:
+      - config-service
+      - rabbit
+    networks:
+      - book-shop-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - RABBIT_HOST=rabbit
+
+  rabbit:
+    hostname: rabbit
+    container_name: rabbit
+    image: rabbitmq:3.12-management
+    labels:
+      NAME: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - book-shop-network
+
+networks:
+  book-shop-network:
+    driver: bridge
 
 volumes:
   pgdata:
