@@ -1,11 +1,11 @@
 package com.example.bill.service;
 
-import com.example.bill.client.account.AccountServiceClient;
-import com.example.bill.client.account.dto.AccountResponseDto;
-import com.example.bill.client.account.dto.AddBookRequestDto;
-import com.example.bill.client.account.dto.EditBillRequestDto;
-import com.example.bill.client.book.BookForSaleResponseDto;
-import com.example.bill.client.book.BookServiceClient;
+import com.example.bill.сlient.account.AccountServiceClient;
+import com.example.bill.сlient.account.dto.AccountResponseDto;
+import com.example.bill.сlient.account.dto.AddBookRequestDto;
+import com.example.bill.сlient.account.dto.EditBillRequestDto;
+import com.example.bill.сlient.book.BookForSaleResponseDto;
+import com.example.bill.сlient.book.BookServiceClient;
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.dto.BillResponseDtoToRabbit;
 import com.example.bill.dto.BookResponseDtoToRabbit;

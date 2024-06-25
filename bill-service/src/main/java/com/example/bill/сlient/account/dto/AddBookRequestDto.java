@@ -1,4 +1,4 @@
-package com.example.bill.client.book;
+package com.example.bill.сlient.account.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BookForSaleResponseDto {
+public class AddBookRequestDto {
 
-    private UUID id;
+    private UUID accountId;
 
-    private Integer cost;
+    private UUID bookId;
 }

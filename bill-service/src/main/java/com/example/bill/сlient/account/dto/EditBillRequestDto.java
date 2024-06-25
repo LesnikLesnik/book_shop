@@ -1,4 +1,4 @@
-package com.example.bill.client.account.dto;
+package com.example.bill.сlient.account.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
-package com.example.bill.client.account;
+package com.example.bill.сlient.account;
 
-import com.example.bill.client.account.dto.AccountResponseDto;
-import com.example.bill.client.account.dto.AddBookRequestDto;
-import com.example.bill.client.account.dto.EditBillRequestDto;
+import com.example.bill.сlient.account.dto.AccountResponseDto;
+import com.example.bill.сlient.account.dto.AddBookRequestDto;
+import com.example.bill.сlient.account.dto.EditBillRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

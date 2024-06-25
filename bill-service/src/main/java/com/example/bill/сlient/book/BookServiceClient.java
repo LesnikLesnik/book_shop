@@ -1,4 +1,4 @@
-package com.example.bill.client.book;
+package com.example.bill.сlient.book;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
