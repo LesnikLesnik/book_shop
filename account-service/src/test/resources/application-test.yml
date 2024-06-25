@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:12:///test
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    enabled: false
+  test:
+    database:
+      replace: none
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    config:
+      enabled: false
+
+jwt:
+  secret: lEsNiKlEsNiK20244202kInSeLkInSeL
+  expiration: 86400
+
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+
+testcontainers:
+  reuse: true  # Повторное использование контейнеров для ускорения тестов
+
+security:
+  jwt:
+    enabled: false
