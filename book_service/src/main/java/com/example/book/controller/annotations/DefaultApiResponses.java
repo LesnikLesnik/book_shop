@@ -8,6 +8,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Операция успешно выполнена"),
         @ApiResponse(responseCode = "400", description = "Неверный запрос"),
@@ -16,8 +18,6 @@ import java.lang.annotation.Target;
         @ApiResponse(responseCode = "500", description = "Ошибка сервера"),
         @ApiResponse(responseCode = "503")
 })
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
 public @interface DefaultApiResponses {
 
 }

@@ -2,18 +2,14 @@ package com.example.bill.service;
 
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.entity.Bill;
-import com.example.bill.exception.BillServiceException;
 import com.example.bill.mapper.BillMapper;
 import com.example.bill.repository.BillRepository;
 import com.example.bill.сlient.account.AccountServiceClient;
 import com.example.bill.сlient.account.dto.AccountResponseDto;
 import com.example.bill.сlient.book.BookForSaleResponseDto;
 import com.example.bill.сlient.book.BookServiceClient;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,7 +19,8 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class BillServiceTest {

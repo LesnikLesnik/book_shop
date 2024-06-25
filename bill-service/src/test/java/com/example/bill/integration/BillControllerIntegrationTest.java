@@ -1,7 +1,6 @@
 package com.example.bill.integration;
 
 import com.example.bill.BillApplication;
-import com.example.bill.dto.BillRequestDto;
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.entity.Bill;
 import com.example.bill.repository.BillRepository;
@@ -20,7 +19,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @AutoConfigureMockMvc

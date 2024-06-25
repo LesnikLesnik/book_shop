@@ -1,9 +1,9 @@
 package com.example.bill.integration;
 
-import com.example.bill.сlient.account.AccountServiceClient;
 import com.example.bill.integration.client.account.AccountServiceClientStub;
-import com.example.bill.сlient.book.BookServiceClient;
 import com.example.bill.integration.client.book.BookServiceClientStub;
+import com.example.bill.сlient.account.AccountServiceClient;
+import com.example.bill.сlient.book.BookServiceClient;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;

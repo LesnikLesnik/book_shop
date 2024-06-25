@@ -62,7 +62,4 @@ public class RabbitMQConfig {
                 .with(ROUTING_KEY_BOOK);
     }
 
-
 }
-
-

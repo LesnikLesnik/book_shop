@@ -9,7 +9,6 @@ import java.util.UUID;
 @FeignClient(name = "book-service")
 public interface BookServiceClient {
 
-
     @GetMapping("/api/books/sell/{id}")
     BookForSaleResponseDto getBookForSale(@PathVariable UUID id);
 }

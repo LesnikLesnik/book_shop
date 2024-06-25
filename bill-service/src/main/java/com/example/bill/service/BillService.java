@@ -1,11 +1,5 @@
 package com.example.bill.service;
 
-import com.example.bill.сlient.account.AccountServiceClient;
-import com.example.bill.сlient.account.dto.AccountResponseDto;
-import com.example.bill.сlient.account.dto.AddBookRequestDto;
-import com.example.bill.сlient.account.dto.EditBillRequestDto;
-import com.example.bill.сlient.book.BookForSaleResponseDto;
-import com.example.bill.сlient.book.BookServiceClient;
 import com.example.bill.dto.BillResponseDto;
 import com.example.bill.dto.BillResponseDtoToRabbit;
 import com.example.bill.dto.BookResponseDtoToRabbit;
@@ -14,6 +8,12 @@ import com.example.bill.exception.AccountException;
 import com.example.bill.exception.BillServiceException;
 import com.example.bill.mapper.BillMapper;
 import com.example.bill.repository.BillRepository;
+import com.example.bill.сlient.account.AccountServiceClient;
+import com.example.bill.сlient.account.dto.AccountResponseDto;
+import com.example.bill.сlient.account.dto.AddBookRequestDto;
+import com.example.bill.сlient.account.dto.EditBillRequestDto;
+import com.example.bill.сlient.book.BookForSaleResponseDto;
+import com.example.bill.сlient.book.BookServiceClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +47,7 @@ public class BillService {
     private static final String TOPIC_EXCHANGE_BOOK = "js.book.notify.exchange";
 
     private static final String ROUTING_KEY_BOOK = "js.key.book";
+
     public BillResponseDto createBill(UUID accountId, BigDecimal amount) {
         log.info("start find, {}, {}", accountId, amount);
         AccountResponseDto accountById = getAccountById(accountId);
@@ -75,7 +76,6 @@ public class BillService {
         editBillRequestDto.setAccountId(accountById.getId());
         accountServiceClient.editBillOnAccount(editBillRequestDto);
     }
-
 
     public BillResponseDto getBillById(UUID id) {
         return billRepository.findById(id)

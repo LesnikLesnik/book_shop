@@ -6,9 +6,9 @@ import com.example.bill.сlient.account.dto.AddBookRequestDto;
 import com.example.bill.сlient.account.dto.EditBillRequestDto;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class AccountServiceClientStub implements AccountServiceClient {

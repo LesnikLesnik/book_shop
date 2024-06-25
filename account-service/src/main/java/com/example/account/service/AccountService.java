@@ -28,7 +28,6 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
 
-
     public AccountResponseDto getAccountById(UUID id) {
         Optional<Account> accountById = accountRepository.findById(id);
         log.info("Find account with id {} completed", id);
@@ -53,7 +52,6 @@ public class AccountService {
         log.info("Account after update {}", updatedAccount);
         return accountMapper.toResponseDto(updatedAccount);
     }
-
 
     public void deleteAccount(UUID id) {
         log.info("Delete account with id {}", id);
