@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      initContainers:
+        - name: init-db
+          image: postgres:16.2-alpine
+          env:
+            - name: POSTGRES_USER
+              value: "qwerty"
+            - name: POSTGRES_PASSWORD
+              value: "qwerty"
+            - name: POSTGRES_DB
+              value: "postgres"
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h 127.0.0.1; do echo waiting for postgres; sleep 2; done;
+              psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+                CREATE DATABASE IF NOT EXISTS account_service_db;
+                CREATE DATABASE IF NOT EXISTS bill_service_db;
+                CREATE DATABASE IF NOT EXISTS book_service_db;
+              EOSQL
+      containers:
+        - name: postgres
+          image: lesniklesnik/postgres-init-book-shop:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "qwerty"
+            - name: POSTGRES_PASSWORD
+              value: "qwerty"
+            - name: POSTGRES_DB
+              value: "postgres"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
