@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: config-service
-          image: lesniklesnik/book-shop-config-service:1.0.2
+          image: lesniklesnik/book-shop-config-service:latest
           ports:
             - containerPort: 8888
           env:

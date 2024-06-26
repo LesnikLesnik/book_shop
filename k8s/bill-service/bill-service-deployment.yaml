@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bill-service
-          image: lesniklesnik/book-shop-bill-service:1.0.2
+          image: lesniklesnik/book-shop-bill-service:latest
           ports:
             - containerPort: 8082
           env:
