@@ -22,7 +22,16 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "prod"
-            - name: SPRING_CONFIG_IMPORT
-              value: "optional:configserver:http://config-service:8888"
-            - name: SPRING_CLOUD_CONFIG_FAIL_FAST
-              value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+spec:
+  type: NodePort
+  selector:
+    app: gateway
+  ports:
+    - port: 8989
+      targetPort: 8989
+      nodePort: 30989

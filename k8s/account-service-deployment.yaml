@@ -26,3 +26,15 @@ spec:
               value: "postgres"
             - name: CONFIG_SERVICE_URL
               value: "http://config-service:8888"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+spec:
+  selector:
+    app: account-service
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081

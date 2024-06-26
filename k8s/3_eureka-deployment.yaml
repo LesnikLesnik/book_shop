@@ -30,3 +30,15 @@ spec:
               value: "prod"
             - name: eureka.client.serviceUrl.defaultZone
               value: "http://registry:8761/eureka/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+spec:
+  selector:
+    app: registry
+  ports:
+    - protocol: TCP
+      port: 8761
+      targetPort: 8761
