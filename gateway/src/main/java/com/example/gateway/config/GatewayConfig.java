@@ -32,16 +32,16 @@ public class GatewayConfig {
                         .uri("lb://book-service"))
 
                 // Применение фильтра аутентификации к защищенным маршрутам
-                .route("account-service", r -> r.path("/account-service/api/accounts/**")
+                .route("account-service", r -> r.path("/api/accounts/**")
                         .filters(f -> f.filter(customAuthenticationFilter))
                         .uri("lb://account-service"))
-                .route("bill-service", r -> r.path("/bill-service/api/bills/**")
+                .route("bill-service", r -> r.path("/api/bills/**")
                         .filters(f -> f.filter(customAuthenticationFilter))
                         .uri("lb://bill-service"))
-                .route("books-service-secured", r -> r.path("/book-service/api/books/**")
+                .route("books-service-secured", r -> r.path("/api/books/**")
                         .filters(f -> f.filter(customAuthenticationFilter))
                         .uri("lb://book-service"))
-                .route("authors-service-secured", r -> r.path("/book-service/api/authors/**")
+                .route("authors-service-secured", r -> r.path("/api/authors/**")
                         .filters(f -> f.filter(customAuthenticationFilter))
                         .uri("lb://book-service"))
                 .build();
