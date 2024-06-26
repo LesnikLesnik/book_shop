@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: lesniklesnik/book-shop-gateway:1.0.2
+          image: lesniklesnik/book-shop-gateway:latest
           ports:
             - containerPort: 8989
           env:

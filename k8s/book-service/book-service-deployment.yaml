@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: book-service
-          image: lesniklesnik/book-shop-book-service:1.0.2
+          image: lesniklesnik/book-shop-book-service:latest
           ports:
             - containerPort: 8083
           env:

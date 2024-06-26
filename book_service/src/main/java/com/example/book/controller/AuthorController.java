@@ -36,7 +36,7 @@ public class AuthorController {
         return authorService.getAuthor(id);
     }
 
-    @GetMapping("/authors")
+    @GetMapping
     @Operation(summary = "Получение всех авторов по 15 штук на странице")
     public Page<AuthorResponseDto> getAllAuthors(@PageableDefault(size = 15) Pageable pageable) {
         return authorService.getAllAuthors(pageable);

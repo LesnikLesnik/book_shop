@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  labels:
+    app: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+        - name: registry
+          image: lesniklesnik/book-shop-registry:latest
+          ports:
+            - containerPort: 8761
+          env:
+            - name: eureka.client.registerWithEureka
+              value: "false"
+            - name: eureka.client.fetchRegistry
+              value: "false"
+            - name: eureka.instance.hostname
+              value: "registry"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: eureka.client.serviceUrl.defaultZone
+              value: "http://registry:8761/eureka/"
